@@ -1,14 +1,33 @@
-# Project
+# Azure Quantum QIO Samples
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+These samples demonstrate the use of the Azure Quantum QIO service.
 
-As the maintainer of this project, please make a few updates:
+Each sample is self-contained in a folder, and demonstrates how to use the QIO service to solve a problem.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Prerequisites
+
+To run these samples, there are some prerequisites:
+
+1. [Create an Azure Quantum Workspace](TODO)
+1. [Install Python on your system](https://www.python.org/downloads/)
+1. [Install the `azure-quantum` Python module](TODO)
+1. (Optional) [Install Jupyter Notebook](https://jupyter.org/install)
+
+## Getting Started
+
+If you're new to the Azure Quantum QIO service, we recommend starting with the [Getting Started samples](./getting-started/), which run through how to set up and submit problems to be solved using the service.
+
+After that, we recommend exploring the other samples in this repository, which demonstrate the use of the Azure Quantum QIO service to solve specific optimization problems. We recommend that you use the Jupyter Notebook versions of these samples if you are new to the QIO service as they contain detailed, step-by-step instructions on how to formulate and solve the problem instance.
+
+We recommend starting with the [ship loading sample](./ship-loading/) before moving on to the [job shop scheduling sample](./job-shop-scheduling), as job shop scheduling introduces some more complex ideas, so it is useful to understand the basics of problem formulation first.
+
+## List of Available Samples
+
+- [Getting Started](./getting-started/)
+  - [1QBit](./getting-started/1qbit)
+  - [Microsoft QIO](./getting-started/microsoft-qio)
+- [Ship Loading Sample](./ship-loading/)
+- [Job Shop Scheduling Sample](./job-shop-scheduling)
 
 ## Contributing
 
