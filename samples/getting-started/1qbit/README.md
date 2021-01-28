@@ -8,13 +8,17 @@ ms.topic: article
 ---
 
 # 1QBit Python SDK Basic Sample
-This sample has demonstrates how to target 1QBit solvers with a basic problem [using the Python SDK](https://github.com/MicrosoftDocs/quantum-docs-private/wiki/Use-the-Python-SDK-for-Quantum-Inspired-Optimization).
+
+This sample has demonstrates how to target 1QBit solvers with a basic problem [using the Python SDK](TODO).
 
 ## Prerequisites
-To run this sample, please ensure you have [created an Azure Quantum Workspace](https://github.com/MicrosoftDocs/quantum-docs-private/wiki/Create-quantum-workspaces-with-the-Azure-portal), and followed the [installation steps for the Python SDK](https://github.com/MicrosoftDocs/quantum-docs-private/wiki/Use-the-Python-SDK-for-Quantum-Inspired-Optimization).
+
+To run this sample, please ensure you have [created an Azure Quantum Workspace](TODO), and followed the [installation steps for the Python SDK](TODO).
 
 ## Running the sample
+
 To execute the sample, run:
+
 ```bash
 python 1qbit.py
 ```
