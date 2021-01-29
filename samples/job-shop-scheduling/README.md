@@ -40,7 +40,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `job-shop-sample` folder and run `jupyter notebook`
+To run this sample, use the commandline to navigate to the `job-shop-scheduling` folder (the same folder that this `README.md` file is in) and run `jupyter notebook`
 
 Your web browser should automatically open a new window showing something similar to the below:
 
@@ -49,6 +49,9 @@ Your web browser should automatically open a new window showing something simila
 If this doesn't happen, copy the localhost link shown in the terminal window and paste it into your browser's address bar.
 
 Once you see the page above, simply click on the `job-shop-sample.ipynb` link to open the sample notebook.
+
+> [!NOTE]
+> If you double click on a cell in the Jupyter Notebook and the text display changes, you can use `shift`-`enter` to rerun the cell, or use `..` to revert the action.
 
 ### Running the Python script
 
