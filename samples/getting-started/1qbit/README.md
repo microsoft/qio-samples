@@ -26,7 +26,3 @@ To execute the sample, run:
 ```bash
 python 1qbit.py
 ```
-
-## Manifest
-
-<!-- TODO -->

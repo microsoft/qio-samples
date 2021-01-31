@@ -59,4 +59,5 @@ Once you see the page above, simply click on the `shipping-sample.ipynb` link to
 
 ## Manifest
 
-<!-- TODO -->
+- **[shipping-sample.ipynb](https://github.com/microsoft/qio-samples/blob/main/samples/ship-loading/shipping-sample.ipynb)**: Jupyter Notebook version of this sample.
+- **[shipping-sample.py](https://github.com/microsoft/qio-samples/blob/main/samples/ship-loading/shipping-sample.py)**: Standalone Python version of this sample.

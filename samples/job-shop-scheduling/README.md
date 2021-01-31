@@ -64,4 +64,5 @@ Once you see the page above, simply click on the `job-shop-sample.ipynb` link to
 
 ### Manifest
 
-<!-- TODO -->
+- **[job-shop-sample.ipynb](https://github.com/microsoft/qio-samples/blob/main/samples/job-shop-scheduling/job-shop-sample.ipynb)**: Jupyter Notebook version of this sample.
+- **[job-shop-sample.py](https://github.com/microsoft/qio-samples/blob/main/samples/job-shop-scheduling/shipping-sample.py)**: Standalone Python version of this sample.
