@@ -1,4 +1,4 @@
-# Azure Quantum QIO Samples
+# Azure Quantum optimization service samples
 
 These samples demonstrate the use of the Azure Quantum QIO service.
 

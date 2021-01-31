@@ -12,7 +12,7 @@ description: "Solve a job shop scheduling problem using the Azure Quantum optimi
 urlFragment: azure-quantum.job-shop-problem
 ---
 
-# Job Shop Scheduling Sample
+# Scheduling jobs with the Azure Quantum optimization service
 
 ## Introduction
 

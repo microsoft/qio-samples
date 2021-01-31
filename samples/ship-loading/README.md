@@ -11,7 +11,7 @@ description: "Learn how to solve a binary optimization problem using the Azure Q
 urlFragment: azure-quantum.job-shop-problem
 ---
 
-# Shipping Sample
+# Solving the ship loading problem with the Azure Quantum optimization service
 
 ## Introduction
 
