@@ -19,7 +19,10 @@ If you're new to the Azure Quantum QIO service, we recommend starting with the [
 
 After that, we recommend exploring the other samples in this repository, which demonstrate the use of the Azure Quantum QIO service to solve specific optimization problems. We recommend that you use the Jupyter Notebook versions of these samples if you are new to the QIO service as they contain detailed, step-by-step instructions on how to formulate and solve the problem instance.
 
-We recommend starting with the [ship loading sample](./samples/ship-loading/) before moving on to the [job shop scheduling sample](./samples/job-shop-scheduling), as job shop scheduling introduces some more complex ideas, so it is useful to understand the basics of problem formulation first.
+We recommend starting with the [ship loading sample](./samples/ship-loading/) before moving on to the [job shop scheduling sample](./samples/job-shop-scheduling), as job shop scheduling introduces some more complex ideas, so it is useful to understand the basics of problem formulation first. Both of these problems have associated Microsoft Learn modules which you can find here:
+
+- [Ship loading](https://docs.microsoft.com/learn/modules/solve-quantum-inspired-optimization-problems/)
+- [Job shop scheduling](https://docs.microsoft.com/learn/modules/solve-job-shop-optimization-azure-quantum/)
 
 ## List of Available Samples
 
