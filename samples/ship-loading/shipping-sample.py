@@ -35,7 +35,7 @@ def create_problem_for_container_weights(container_weights: List[int]) -> Proble
 
             terms.append(
                 Term(
-                    w = container_weights[i] * container_weights[j],
+                    c = container_weights[i] * container_weights[j],
                     indices = [i, j]
                 )
             )
@@ -100,7 +100,7 @@ def create_simplified_problem_for_container_weights(container_weights: List[int]
         for j in range(i+1, len(container_weights)):
             terms.append(
                 Term(
-                    w = container_weights[i] * container_weights[j],
+                    c = container_weights[i] * container_weights[j],
                     indices = [i, j]
                 )
             )
