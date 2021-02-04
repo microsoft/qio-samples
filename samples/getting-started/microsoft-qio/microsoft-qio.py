@@ -19,13 +19,13 @@ workspace.login()
 problem = Problem(name="My First Problem", problem_type=ProblemType.ising)
 
 terms = [
-    Term(w=-9, indices=[0]),
-    Term(w=-3, indices=[1,0]),
-    Term(w=5, indices=[2,0]),
-    Term(w=9, indices=[2,1]),
-    Term(w=2, indices=[3,0]),
-    Term(w=-4, indices=[3,1]),
-    Term(w=4, indices=[3,2])
+    Term(c=-9, indices=[0]),
+    Term(c=-3, indices=[1,0]),
+    Term(c=5, indices=[2,0]),
+    Term(c=9, indices=[2,1]),
+    Term(c=2, indices=[3,0]),
+    Term(c=-4, indices=[3,1]),
+    Term(c=4, indices=[3,2])
 ]
 
 problem.add_terms(terms=terms)
