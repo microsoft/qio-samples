@@ -4,8 +4,7 @@
 # Licensed under the MIT License.
 
 
-#  In this example, we will take our learnings from the ship-loading sample and generalize the load balancing
-#  between two ships to the load-balancing between multiple-ships.
+#  In this example, we will take our learnings from the ship-loading sample and generalize to load-balancing between any number of ships.
 # 
 #  We will use a PUBO format: indices are either 0 or 1 (instead of -1 / 1 for Ising)
 # 
@@ -98,8 +97,6 @@
 #                   + ...
 #                       + ...
 # 
-# Instantiate Workspace object which allows you to connect to the Workspace you've previously deployed in Azure.
-# Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
 
 
 from typing import List
@@ -116,13 +113,13 @@ import os, time
 import time
 from itertools import combinations
 
+# Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
 workspace = Workspace(
     subscription_id=    "",
     resource_group=     "",
     name=               "",
     location=           ""
 )
-
 
 def visualize_result(result, containers, ships, target):
     print("Result received from: ", target)
@@ -269,11 +266,14 @@ def SolveMyProblem(problem, s):
 workspace.login()
 
 # Try to call a solver with different timeout value and see if it affects the results
-# SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=10))
+SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=10))
 # SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=20))
 # SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=30))
 # SolveMyProblem(problem, SimulatedAnnealing(workspace))
+
+# Try using the parameters returned by the parameter free versions and observe the significant performance improvement
 SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=5, beta_start=8.086689309396733e-05, beta_stop=7.594132985765675, restarts=360, sweeps=50))
+
 # SolveMyProblem(problem, SimulatedAnnealing(workspace, platform=HardwarePlatform.FPGA, timeout=5))
 # SolveMyProblem(problem, Tabu(workspace, timeout=5))
 # SolveMyProblem(problem, ParallelTempering(workspace, timeout=60))
