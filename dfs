@@ -1,0 +1,113 @@
+[33mcommit 79b28adafc1d5743e7c3cb6bacb39ed31b6732bb[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Fabrice Frachon <fabricfr@microsoft.com>
+Date:   Mon Feb 15 21:46:47 2021 -0800
+
+    First version of ship loading in PUBO format
+
+[1mdiff --git a/samples/multiship-loading-sample/multiship-loading-sample.py b/samples/multiship-loading-sample/multiship-loading-sample.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..675ccd1[m
+[1m--- /dev/null[m
+[1m+++ b/samples/multiship-loading-sample/multiship-loading-sample.py[m
+[36m@@ -0,0 +1,273 @@[m
+[32m+[m[32m#!/usr/bin/env python[m
+[32m+[m[32m# coding: utf-8[m
+[32m+[m[32m# Copyright (c) Microsoft Corporation.[m
+[32m+[m[32m# Licensed under the MIT License.[m
+[32m+[m
+[32m+[m
+[32m+[m[32m#  In this example, we will take our learnings from the ship-loading sample and generalize the load balancing[m
+[32m+[m[32m#  between two ships to the load-balancing between multiple-ships.[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#  For this sample, we will use a PUBO format that assumes indices are either 0 or 1 (instead of -1 / 1 for Ising)[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#  In order to balance containers between multiple ships, one option is to define a cost function that:[m
+[32m+[m[32m#       1. Penalizes variance from a theoretical equal distribution (EqDistr = TotalContainerWeights / NbShips)[m
+[32m+[m[32m#       2. Penalizes the assignment of the same container on multiple ships[m
+[32m+[m[32m#[m
+[32m+[m[32m#   We will create two cost-functions H1 and H2 that we will then sum to evaluate the total cost of a solution[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#  1. Penalize variance from equal distribution between ships[m
+[32m+[m[32m#     A way to penalize a large variance from the equal distribution for a given ship is to express it in the following way:[m
+[32m+[m[32m#       Given 3 containers with respective weights W0, W1, W3 and EqDistrib = (W0 + W1 + W2) / 3[m
+[32m+[m[32m#           (W0 + W1 + W2 - EqDistrib)^2[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#   Let's take the following example:[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#   Cont. weights       1 5 9 7 3[m
+[32m+[m[32m#   Total weight        25[m
+[32m+[m[32m#   Ships               A, B, C[m
+[32m+[m[32m#   EquDistrib          25 / 3 = 8.33[m
+[32m+[m
+[32m+[m[32m#                   Containers[m
+[32m+[m[32m#                   1 5 9 7 3[m
+[32m+[m[32m#   Ship[m
+[32m+[m[32m#   A               0 0 9 0 0   (9-8.33 ) ^2    = 0.4489[m
+[32m+[m[32m#   B               0 5 0 0 3   (5+3-8.33)^2    = 0.1089[m
+[32m+[m[32m#   C               1 0 0 7 0   (1+7-8.33)^2    = 0.1089[m
+[32m+[m[32m#[m
+[32m+[m[32m#   As we need to represent our problem in a binary format we need to "encode" the presence xi=1 or absence xi=0 of a given container for every single ship.[m
+[32m+[m[32m#       Using the example above, we duplicate the list of container weights for each ship into a single list of weights:[m
+[32m+[m[32m#           1  5  9  7  3  - 1  5  9  7  3  - 1   5   9   7   3[m
+[32m+[m[32m#           W0 W1 W2 W3 W4   W5 W6 W7 W8 W9   W10 W11 W12 W13 W14[m[41m [m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#       The cost function H1 becomes:[m[41m [m
+[32m+[m[32m#           H1 = (W0.x0 + W1.x1 + W2.x2 + W3.x3 + W4.x4 - EqDistrib)^2                          --> For Ship A[m
+[32m+[m[32m#               + (W5.x5 + W6.x6 + W7.x7 + W8.x8 + W9.x9 - EqDistrib)^2                         --> For Ship B[m
+[32m+[m[32m#                   + (W10.x10 + W11.x11 + W12.x12 + W13.x13 + W14.x14 - EqDistrib)^2           --> For Ship C[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#       If you expand the above and group the common terms, you get the following:[m
+[32m+[m[32m#           W0^2.x0^2 + W1^2.x1^2 + + W2^2.x2^2 + .... + W14^1.x14^14                           --> Term(w=Wi^2, indices=[i,i][m
+[32m+[m[32m#               + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])[m
+[32m+[m[32m#                   + 2(W1.x1 * W2.x2) + 2(W1.x1 * W3.x3) + 2(W1.x1 * W4.x4)[m
+[32m+[m[32m#                       + 2(W2.x2 * W3.x3) + 2(W2.x2 * W4.x4)[m
+[32m+[m[32m#                           + 2(W3.x3 * W14.x14)[m
+[32m+[m[32m#               + 2(W5.x5 * W6.x6) + 2(W5.x5 * W7.x7) + 2(W5.x5 * W8.x8) + 2(W5.x5 * W9.x9)[m
+[32m+[m[32m#                   + ...[m
+[32m+[m[32m#                       + ...[m
+[32m+[m[32m#                           + ...[m
+[32m+[m[32m#               + ...[m
+[32m+[m[32m#           - (W0.x0 * EqDistrib) - (W1.x1 * EqDistrib) - ... - (W14.x14 * EqDistrib)          --> Term(w=-2*Wi*EqDistrib, indices=[i])[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#  2. Penalize the assignment of the same container on multiple ships[m
+[32m+[m[32m#           Using the containers weight encoding in #1, we can devise a cost function such as this one for the first container:[m
+[32m+[m[32m#              (W0.x0 + W5.x5 + W10.x10 - W0)^2[m[41m [m
+[32m+[m[32m#           As W0, W5 and W10 are actually the same value (it is the same container represented across multiple ships)[m
+[32m+[m[32m#           The following is the equivalent: (W0.x0 + W0.x5 + W0.x10 - W0)^2[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#           If we expand and group the common terms, you get the following:[m
+[32m+[m[32m#               W0^2.x0^2 + W0^2.x5^2 + W0^2.x10^2[m
+[32m+[m[32m#                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10)[m
+[32m+[m[32m#                       - 2(W0^2.x0) - 2(W0^2.x5) - 2(W0^2.x10)[m
+[32m+[m[32m#                           + W0^2[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#           And you repeat the above for each container across all ships[m
+[32m+[m[32m#               H2 = W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2                                --> Term(w=Wi^2, [m,m])[m
+[32m+[m[32m#                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10) + ....                   --> Term(w=2*Wm^2, [m,n])[m
+[32m+[m[32m#                           + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)[m
+[32m+[m[32m#                   - 2(W0^2.x0) - 2(W1^2.x1) - .... - 2(W14^2.x14)                            --> Term(w=-2*Wm^2, [m])[m
+[32m+[m[32m#                           + W0^2[m
+[32m+[m[32m#[m[41m [m
+[32m+[m[32m#   You will notice that H1 and H2 have common indices [i,i]/[m,m] and [i]/[m][m
+[32m+[m[32m#   We will need to be careful to not duplicate them in our final list of Terms describing the cost function.[m
+[32m+[m[32m#   H = H1 + H2[m
+[32m+[m[32m#     = 2 * (W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2)                                        --> Term(w=2*Wi^2, [i,i])[m
+[32m+[m[32m#       - 2(W0^2.x0) - .... - 2(W4^2.x14) - (W0.x0 * EqDistrib) - ... - (W14.x14 * EqDistrib)   --> Term(w=-2Wi^2 - W0*EqDistrib, [i])[m
+[32m+[m[32m#                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10) + ....                    --> Term(w=2*Wm^2, [m,n])[m
+[32m+[m[32m#                           + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)[m
+[32m+[m
+[32m+[m[32m# Instantiate Workspace object which allows you to connect to the Workspace you've previously deployed in Azure.[m
+[32m+[m[32m# Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.[m
+[32m+[m[32mfrom azure.quantum import Workspace[m
+[32m+[m
+[32m+[m[32m# Copy the settings for your workspace below[m
+[32m+[m[32mworkspace = Workspace ([m
+[32m+[m[32m    subscription_id = "",  # Add your subscription_id[m
+[32m+[m[32m    resource_group = "",   # Add your resource_group[m
+[32m+[m[32m    name = "",             # Add your workspace name[m
+[32m+[m[32m    location = ""          # Add your workspace location (for example, "westus")[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mworkspace.login()[m
+[32m+[m
+[32m+[m[32m# Take an array of container weights and return a Problem object that rep

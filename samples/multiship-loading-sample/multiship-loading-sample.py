@@ -7,13 +7,13 @@
 #  In this example, we will take our learnings from the ship-loading sample and generalize the load balancing
 #  between two ships to the load-balancing between multiple-ships.
 # 
-#  For this sample, we will use a PUBO format that assumes indices are either 0 or 1 (instead of -1 / 1 for Ising)
+#  We will use a PUBO format: indices are either 0 or 1 (instead of -1 / 1 for Ising)
 # 
 #  In order to balance containers between multiple ships, one option is to define a cost function that:
-#       1. Penalizes variance from a theoretical equal distribution (EqDistr = TotalContainerWeights / NbShips)
+#       1. Penalizes variance from a theoretical equal distribution (Equal Distribution = TotalContainerWeights / NbShips)
 #       2. Penalizes the assignment of the same container on multiple ships
 #
-#   We will create two cost-functions H1 and H2 that we will then sum to evaluate the total cost of a solution
+#   We will create two sub cost-functions H1 and H2 that we will then sum to evaluate the total cost of a solution
 # 
 #  1. Penalize variance from equal distribution between ships
 #     A way to penalize a large variance from the equal distribution for a given ship is to express it in the following way:
@@ -34,7 +34,7 @@
 #   B               0 5 0 0 3   (5+3-8.33)^2    = 0.1089
 #   C               1 0 0 7 0   (1+7-8.33)^2    = 0.1089
 #
-#   As we need to represent our problem in a binary format we need to "encode" the presence xi=1 or absence xi=0 of a given container for every single ship.
+#   As we need to represent our problem in a binary format we need to "encode" the presence xi=1 or absence xi=0 of a given container on a ship.
 #       Using the example above, we duplicate the list of container weights for each ship into a single list of weights:
 #           1  5  9  7  3  - 1  5  9  7  3  - 1   5   9   7   3
 #           W0 W1 W2 W3 W4   W5 W6 W7 W8 W9   W10 W11 W12 W13 W14 
@@ -46,59 +46,62 @@
 # 
 #       If you expand the above and group the common terms, you get the following:
 #           W0^2.x0^2 + W1^2.x1^2 + + W2^2.x2^2 + .... + W14^1.x14^14                           --> Term(w=Wi^2, indices=[i,i]
-#               + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])
+#               + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W3.x3) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])
 #                   + 2(W1.x1 * W2.x2) + 2(W1.x1 * W3.x3) + 2(W1.x1 * W4.x4)
 #                       + 2(W2.x2 * W3.x3) + 2(W2.x2 * W4.x4)
-#                           + 2(W3.x3 * W14.x14)
+#                           + 2(W3.x3 * W4.x4)
 #               + 2(W5.x5 * W6.x6) + 2(W5.x5 * W7.x7) + 2(W5.x5 * W8.x8) + 2(W5.x5 * W9.x9)
 #                   + ...
 #                       + ...
 #                           + ...
 #               + ...
-#           - (W0.x0 * EqDistrib) - (W1.x1 * EqDistrib) - ... - (W14.x14 * EqDistrib)          --> Term(w=-2*Wi*EqDistrib, indices=[i])
+#           - 2(W0.x0 * EqDistrib) - 2(W1.x1 * EqDistrib) - ... - 2(W14.x14 * EqDistrib)          --> Term(w=-2*Wi*EqDistrib, indices=[i])
 # 
 #  2. Penalize the assignment of the same container on multiple ships
 #           Using the containers weight encoding in #1, we can devise a cost function such as this one for the first container:
 #              (W0.x0 + W5.x5 + W10.x10 - W0)^2 
 #           As W0, W5 and W10 are actually the same value (it is the same container represented across multiple ships)
-#           The following is the equivalent: (W0.x0 + W0.x5 + W0.x10 - W0)^2
+#           we have: (W0.x0 + W0.x5 + W0.x10 - W0)^2
 # 
 #           If we expand and group the common terms, you get the following:
 #               W0^2.x0^2 + W0^2.x5^2 + W0^2.x10^2
 #                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10)
 #                       - 2(W0^2.x0) - 2(W0^2.x5) - 2(W0^2.x10)
-#                           + W0^2
+#                           + W0^2                                                             --> The constant can be ignored as it is the same value for all solutions
 # 
 #           And you repeat the above for each container across all ships
-#               H2 = W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2                                --> Term(w=Wi^2, [m,m])
+#               H2 = W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2                                --> Term(w=Wm^2, [m,m])
 #                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10) + ....                   --> Term(w=2*Wm^2, [m,n])
-#                           + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)
+#                   + 2(W1^2.x1.x6) + 2(W1^2.x1.x11) + 2(W1^2.x6.x11)
+#                   +
+#                   ....
+#                   + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)
 #                   - 2(W0^2.x0) - 2(W1^2.x1) - .... - 2(W14^2.x14)                            --> Term(w=-2*Wm^2, [m])
-#                           + W0^2
 # 
 #   You will notice that H1 and H2 have common indices [i,i]/[m,m] and [i]/[m]
 #   We will need to be careful to not duplicate them in our final list of Terms describing the cost function.
 #   H = H1 + H2
-#     = 2 * (W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2)                                        --> Term(w=2*Wi^2, [i,i])
+#     =   2(W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2)                                         --> Term(w=2*Wi^2, [i,i])
+# 
 #       - 2(W0^2.x0) - .... - 2(W4^2.x14) - (W0.x0 * EqDistrib) - ... - (W14.x14 * EqDistrib)   --> Term(w=-2Wi^2 - W0*EqDistrib, [i])
-#                   + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10) + ....                    --> Term(w=2*Wm^2, [m,n])
-#                           + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)
-
+# 
+#       + 2(W0^2.x0.x5) + 2(W0^2.x0.x10) + 2(W0^2.x5.x10)                                       --> Term(w=2*Wm^2, [m,n])
+#       + ....
+#       + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)
+# 
+#       + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W3.x3) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])
+#           + 2(W1.x1 * W2.x2) + 2(W1.x1 * W3.x3) + 2(W1.x1 * W4.x4)
+#               + 2(W2.x2 * W3.x3) + 2(W2.x2 * W4.x4)
+#                   + 2(W3.x3 * W4.x4)
+#           + 2(W5.x5 * W6.x6) + 2(W5.x5 * W7.x7) + 2(W5.x5 * W8.x8) + 2(W5.x5 * W9.x9)
+#               + ...
+#                   + ...
+#                       + ...
+# 
 # Instantiate Workspace object which allows you to connect to the Workspace you've previously deployed in Azure.
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
-from azure.quantum import Workspace
 
-# Copy the settings for your workspace below
-workspace = Workspace (
-    subscription_id = "",  # Add your subscription_id
-    resource_group = "",   # Add your resource_group
-    name = "",             # Add your workspace name
-    location = ""          # Add your workspace location (for example, "westus")
-)
 
-workspace.login()
-
-# Take an array of container weights and return a Problem object that represents the cost function
 from typing import List
 
 from azure.quantum import Workspace
@@ -114,10 +117,10 @@ import time
 from itertools import combinations
 
 workspace = Workspace(
-    subscription_id=    "c445d49a-859d-4681-a32b-a63af698a6f0", # frachon@outlook.com subscription
-    resource_group=     "Experiment", # add the name of your resource group
-    name=               "selfhost", # add the name of the Azure Quantum workspace from Step 2
-    location=           "West US"
+    subscription_id=    "",
+    resource_group=     "",
+    name=               "",
+    location=           ""
 )
 
 
@@ -126,7 +129,7 @@ def visualize_result(result, containers, ships, target):
     nb_ships = len(ships)
     try:
         config = result['configuration']
-        config = list(config.values()) # TODO: REMOVE ME !!
+        config = list(config.values())
         for ship, sub_config in enumerate(np.array_split(config, nb_ships)):
             shipWeight = 0
             for c,b in enumerate(sub_config):
@@ -144,7 +147,7 @@ def visualize_result(result, containers, ships, target):
         print('No Parameter')
 
 
-def AddTermsForShip(start, end, containers, EqDistrib):
+def AddTermsWithinShip(start, end, containers, EqDistrib):
     terms: List[Term] = []
     for i,w in enumerate(containers[start:end+1], start):
         # -2*Wi*EqDistrib.xi (small variance penalty) + - 2Wi^2.xi
@@ -160,10 +163,10 @@ def AddTermsForShip(start, end, containers, EqDistrib):
 
     return terms
 
-def AddTermsForContainer(start, end, containers):
+def AddTermsAcrossShips(start, end, containers):
     terms: List[Term] = []
 
-    # The following is integrated into AddTermsForShip to reduce the number of Terms
+    # The following is integrated into AddTermsWithinShip to reduce the number of Terms
     # for c in combinations(range(start, end+1), 1):
     #     w = containers[c[0]][0]
     #     i1 = containers[c[0]][1]
@@ -175,7 +178,7 @@ def AddTermsForContainer(start, end, containers):
         i2 = containers[c[1]][1]
         terms.append(Term(w=2*w*w, indices=[i1,i2]))            # Term(w=2*Wm^2, [m,n])
 
-    # The following is integrated into AddTermsForShip to reduce the number of Terms
+    # The following is integrated into AddTermsWithinShip to reduce the number of Terms
     # # for c in combinations(range(start, end+1), 1):
     #     w = containers[c[0]][0]
     #     i1 = containers[c[0]][1]
@@ -189,8 +192,8 @@ def AddTermsForContainer(start, end, containers):
 def createProblemForContainerWeights(containerWeights: List[int], Ships) -> List[Term]:
 
     terms: List[Term] = []
-    containers: List[int] = []
-    containers2: List[int, int] = []
+    containersWithinShip: List[int] = []
+    containersAcrossShips: List[int, int] = []
     totalWeight = 0
     EqDistrib = 0
 
@@ -199,35 +202,41 @@ def createProblemForContainerWeights(containerWeights: List[int], Ships) -> List
     EqDistrib = totalWeight / len(Ships)
     print(Ships)
     print(containerWeights)
-    print("totalWeight:", totalWeight)
-    print("EqDistrib:", EqDistrib)
+    print("Total Weight:", totalWeight)
+    print("Equal weight distribution:", EqDistrib)
 
-    containers = containerWeights*len(Ships)
+    # Create fo container weights in this format:
+    # 1  5  9  7  3  - 1  5  9  7  3  - 1   5   9   7   3
+    # W0 W1 W2 W3 W4   W5 W6 W7 W8 W9   W10 W11 W12 W13 W14 
+    containersWithinShip = containerWeights*len(Ships)
 
+    # Create fo container weights in this format:
+    # 1  1  1  5  5  5  9  9  9  7  7  7  3  3  3
     for i in range(len(containerWeights)):
         for j in range(len(Ships)):
             k = i + j*len(containerWeights)
-            containers2.append([containers[i], k])
+            containersAcrossShips.append([containersWithinShip[i], k])
 
-    for split in np.array_split(range(len(containers)), len(Ships)):
-        terms = terms + AddTermsForShip(split[0], split[-1], containers, EqDistrib)
+    for split in np.array_split(range(len(containersWithinShip)), len(Ships)):
+        terms = terms + AddTermsWithinShip(split[0], split[-1], containersWithinShip, EqDistrib)
 
-    for split in np.array_split(range(len(containers2)), len(containerWeights)):
-        terms = terms + AddTermsForContainer(split[0], split[-1], containers2)
+    for split in np.array_split(range(len(containersAcrossShips)), len(containerWeights)):
+        terms = terms + AddTermsAcrossShips(split[0], split[-1], containersAcrossShips)
 
     return terms
 
 
 # This array contains a list of the weights of the containers:
 # containerWeights = [1, 5, 2, 9]
-containerWeights = [3, 8, 3, 4, 1, 5]
+# containerWeights = [3, 8, 3, 4, 1, 5]
 # containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6]
+containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 2, 2, 9, 4, 6, 3, 8, 5, 7, 2, 4, 9, 4]
 # containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 1, 7, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 7, 6, 1, 1, 7, 3, 1, 5, 2, 2, 7, 9,
 # 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0,
 # 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5]
 
-Ships = ["A", "B", "C"]
-# Ships = ["A", "B", "C", "D"]
+# Ships = ["A", "B", "C"]
+Ships = ["A", "B", "C", "D", "E"]
 # Ships = ["A", "B","C","D","E","F","G","H"]
 # Ships = ["A", "B","C","D","E","F","G","H","K","L","M", "N", "O", "P"]
 
