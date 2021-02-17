@@ -6,7 +6,7 @@
 
 #  In this example, we will take our learnings from the ship-loading sample and generalize to load-balancing between any number of ships.
 # 
-#  We will use a PUBO format: indices are either 0 or 1 (instead of -1 / 1 for Ising)
+#  We will use a PUBO format: indices are either 0 or 1 (-1 or 1 for Ising)
 # 
 #  In order to balance containers between multiple ships, one option is to define a cost function that:
 #       1. Penalizes variance from a theoretical equal distribution (Equal Distribution = TotalContainerWeights / NbShips)
@@ -33,10 +33,11 @@
 #   B               0 5 0 0 3   (5+3-8.33)^2    = 0.1089
 #   C               1 0 0 7 0   (1+7-8.33)^2    = 0.1089
 #
-#   As we need to represent our problem in a binary format we need to "encode" the presence xi=1 or absence xi=0 of a given container on a ship.
+#   As we need to represent our problem in a binary format we need to "encode" the presence (xi=1) or absence (xi=0) of a given container on a ship.
 #       Using the example above, we duplicate the list of container weights for each ship into a single list of weights:
-#           1  5  9  7  3  - 1  5  9  7  3  - 1   5   9   7   3
-#           W0 W1 W2 W3 W4   W5 W6 W7 W8 W9   W10 W11 W12 W13 W14 
+#           Ship A            Ship B            Ship C
+#           1  5  9  7  3  -  1  5  9  7  3  -  1   5   9   7   3
+#           W0 W1 W2 W3 W4    W5 W6 W7 W8 W9    W10 W11 W12 W13 W14 
 # 
 #       The cost function H1 becomes: 
 #           H1 = (W0.x0 + W1.x1 + W2.x2 + W3.x3 + W4.x4 - EqDistrib)^2                          --> For Ship A
@@ -78,7 +79,7 @@
 #                   - 2(W0^2.x0) - 2(W1^2.x1) - .... - 2(W14^2.x14)                            --> Term(w=-2*Wm^2, [m])
 # 
 #   You will notice that H1 and H2 have common indices [i,i]/[m,m] and [i]/[m]
-#   We will need to be careful to not duplicate them in our final list of Terms describing the cost function.
+#   We will need to be careful to not duplicate them, but sum them, in our final list of Terms describing the cost function.
 #   H = H1 + H2
 #     =   2(W0^2.x0^2 + W1^2.x1^2 + .... + W14^2.x14^2)                                         --> Term(w=2*Wi^2, [i,i])
 # 
@@ -88,7 +89,7 @@
 #       + ....
 #       + 2(W4^2.x4.x9) + 2(W4^2.x4.x14) + 2(W9^2.x9.x14)
 # 
-#       + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W3.x3) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])
+#       + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W3.x3) + 2(W0.x0 * W4.x4)             --> Term(w=2*Wi*Wj, indices=[i,j])
 #           + 2(W1.x1 * W2.x2) + 2(W1.x1 * W3.x3) + 2(W1.x1 * W4.x4)
 #               + 2(W2.x2 * W3.x3) + 2(W2.x2 * W4.x4)
 #                   + 2(W3.x3 * W4.x4)
@@ -122,7 +123,7 @@ workspace = Workspace(
 )
 
 def visualize_result(result, containers, ships, target):
-    print("Result received from: ", target)
+    print("\rResult received from: ", target)
     nb_ships = len(ships)
     try:
         config = result['configuration']
@@ -143,27 +144,26 @@ def visualize_result(result, containers, ships, target):
     except:
         print('No Parameter')
 
-
-def AddTermsWithinShip(start, end, containers, EqDistrib):
+def AddTermsWeightVarianceCost(start, end, containers, EqDistrib):
     terms: List[Term] = []
     for i,w in enumerate(containers[start:end+1], start):
-        # -2*Wi*EqDistrib.xi (small variance penalty) + - 2Wi^2.xi
+        # -2*Wi*EqDistrib.xi -2Wi^2.xi (weight variance cost + duplicate container cost)
         terms.append(Term(w=-2*w*EqDistrib - 2*w*w, indices=[i]))
-        # Wi^2.xi^2 (small variance penalty) + Wi^2.xi^2 (no duplicate boat constraint)
+        # Wi^2.xi^2 + Wi^2.xi^2 (weight variance cost + duplicate container cost)
         terms.append(Term(w=2*w*w, indices=[i,i]))
 
     for c in combinations(range(start, end+1), 2):
         w0 = containers[c[0]]
         w1 = containers[c[1]]
-        # 2*Wi*Wj
+        # 2*Wi*Wj (weight variance cost)
         terms.append(Term(w=2*w0*w1, indices=[c[0],c[1]]))
 
     return terms
 
-def AddTermsAcrossShips(start, end, containers):
+def AddTermsDuplicateContainerCost(start, end, containers):
     terms: List[Term] = []
 
-    # The following is integrated into AddTermsWithinShip to reduce the number of Terms
+    # The following is integrated into AddTermsWeightVarianceCost to reduce the number of Terms and speed-up Terms generation
     # for c in combinations(range(start, end+1), 1):
     #     w = containers[c[0]][0]
     #     i1 = containers[c[0]][1]
@@ -175,7 +175,7 @@ def AddTermsAcrossShips(start, end, containers):
         i2 = containers[c[1]][1]
         terms.append(Term(w=2*w*w, indices=[i1,i2]))            # Term(w=2*Wm^2, [m,n])
 
-    # The following is integrated into AddTermsWithinShip to reduce the number of Terms
+    # The following is integrated into AddTermsWeightVarianceCost to reduce the number of Terms and speed-up Terms generation
     # # for c in combinations(range(start, end+1), 1):
     #     w = containers[c[0]][0]
     #     i1 = containers[c[0]][1]
@@ -184,7 +184,6 @@ def AddTermsAcrossShips(start, end, containers):
     terms.append(Term(w=containers[start][0]*containers[start][0], indices=[]))
 
     return terms
-
 
 def createProblemForContainerWeights(containerWeights: List[int], Ships) -> List[Term]:
 
@@ -215,34 +214,24 @@ def createProblemForContainerWeights(containerWeights: List[int], Ships) -> List
             containersAcrossShips.append([containersWithinShip[i], k])
 
     for split in np.array_split(range(len(containersWithinShip)), len(Ships)):
-        terms = terms + AddTermsWithinShip(split[0], split[-1], containersWithinShip, EqDistrib)
+        terms = terms + AddTermsWeightVarianceCost(split[0], split[-1], containersWithinShip, EqDistrib)
 
     for split in np.array_split(range(len(containersAcrossShips)), len(containerWeights)):
-        terms = terms + AddTermsAcrossShips(split[0], split[-1], containersAcrossShips)
+        terms = terms + AddTermsDuplicateContainerCost(split[0], split[-1], containersAcrossShips)
 
     return terms
 
 
 # This array contains a list of the weights of the containers:
-# containerWeights = [1, 5, 2, 9]
-# containerWeights = [3, 8, 3, 4, 1, 5]
-# containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6]
 containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 2, 2, 9, 4, 6, 3, 8, 5, 7, 2, 4, 9, 4]
-# containerWeights = [3, 8, 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 1, 7, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 7, 6, 1, 1, 7, 3, 1, 5, 2, 2, 7, 9,
-# 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0,
-# 3, 4, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 8, 7, 6, 1, 1, 7, 3, 2, 4, 6, 8, 5, 6, 5, 7, 7, 6, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5, 1, 3, 1, 5, 2, 2, 7, 9, 5, 4, 8, 9, 4, 6, 0, 6, 8, 5]
-
-# Ships = ["A", "B", "C"]
 Ships = ["A", "B", "C", "D", "E"]
-# Ships = ["A", "B","C","D","E","F","G","H"]
-# Ships = ["A", "B","C","D","E","F","G","H","K","L","M", "N", "O", "P"]
 
 # Create the Terms for this list of containers:
 terms = createProblemForContainerWeights(containerWeights,Ships)
 
 # Create the Problem to submit to the solver:
 nbTerms = len(terms)
-problemName = "Balancing " + str(len(containerWeights)) + " containers between " + str(len(Ships)) + " Ships (" + str(nbTerms) + " terms)"
+problemName = f'Balancing {str(len(containerWeights))} containers between {str(len(Ships))} Ships ({nbTerms:,} terms)'
 print(problemName)
 problem = Problem(name=problemName, problem_type=ProblemType.pubo, terms=terms)
 
@@ -254,12 +243,10 @@ def SolveMyProblem(problem, s):
         Job.wait_until_completed()
         duration = Job.details.end_execution_time - Job.details.begin_execution_time
         if (Job.details.status == "Succeeded"):
-            print()
             visualize_result(Job.get_results(), containerWeights*len(Ships), Ships, s.target)
             print("Execution duration: ", duration)
         else:
-            print()
-            print("Job ID", Job.id, "failed")
+            print("\rJob ID", Job.id, "failed")
     except BaseException as e:
         print(e)
 
@@ -278,5 +265,7 @@ SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=5, beta_start=8.08
 # SolveMyProblem(problem, Tabu(workspace, timeout=5))
 # SolveMyProblem(problem, ParallelTempering(workspace, timeout=60))
 # SolveMyProblem(problem, QuantumMonteCarlo(workspace))
+
+# PathRelinkingSolver is only available if the 1QBit provider is enabled in your quantum workspace
 # SolveMyProblem(problem, PathRelinkingSolver(workspace), -1)
 
