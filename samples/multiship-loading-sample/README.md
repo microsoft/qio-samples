@@ -11,11 +11,11 @@ description: "Learn how to solve a binary optimization problem using the Azure Q
 urlFragment: azure-quantum.multiship-problem
 ---
 
-# Solving the ship loading problem with the Azure Quantum optimization service
+# Solving the multi-ship loading problem with the Azure Quantum optimization service
 
 ## Introduction
 
-This sample provides a comprehensive walkthrough of the multi-ship loading problem, from multiple sub-problem definitions to using the Azure Quantum Optimization Service to obtain results and help choose solver parameter. This is an intermediate-level sample.
+This sample provides a comprehensive walkthrough of the multi-ship loading problem, from multiple sub-problem definitions to using the Azure Quantum Optimization Service to obtain results and help choose solver parameters. This is an intermediate-level sample.
 
 By working through this sample, you will learn:
 
@@ -56,7 +56,7 @@ Once you see the page above, simply click on the `multiship-loading.ipynb` link 
 
 - Open up the `multiship-loading-sample.py` script using your favorite IDE or a text editor.
 - Fill in your Azure Quantum workspace details at the beginning of the script.
-- Run the script through your IDE or use the command line to navigate to the `shipping-sample` folder and then run `python ./multiship-loading-sample.py` or `python3 ./multiship-loading-sample.py` (depending on how your environment is set up).
+- Run the script through your IDE or use the command line to navigate to the `multiship-loading-sample` folder and then run `python ./multiship-loading-sample.py` or `python3 ./multiship-loading-sample.py` (depending on how your environment is set up).
 
 ## Manifest
 
