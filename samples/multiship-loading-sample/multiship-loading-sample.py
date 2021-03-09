@@ -16,7 +16,7 @@
 # 
 #  1. Penalize variance from equal distribution between ships
 #     A way to penalize a large variance from the equal distribution for a given ship is to express it in the following way:
-#       Given 3 containers with respective weights W0, W1, W3 and EqDistrib = (W0 + W1 + W2) / 3
+#       Given 3 containers with respective weights W0, W1, W2 and EqDistrib = (W0 + W1 + W2) / 3
 #           (W0 + W1 + W2 - EqDistrib)^2
 # 
 #   Let's take the following example:
@@ -45,7 +45,7 @@
 #                   + (W10.x10 + W11.x11 + W12.x12 + W13.x13 + W14.x14 - EqDistrib)^2           --> For Ship C
 # 
 #       If you expand the above and group the common terms, you get the following:
-#           W0^2.x0^2 + W1^2.x1^2 + + W2^2.x2^2 + .... + W14^1.x14^14                           --> Term(w=Wi^2, indices=[i,i]
+#           W0^2.x0^2 + W1^2.x1^2 + W2^2.x2^2 + .... + W14^1.x14^14                           --> Term(w=Wi^2, indices=[i,i]
 #               + 2(W0.x0 * W1.x1) + 2(W0.x0 * W2.x2) + 2(W0.x0 * W3.x3) + 2(W0.x0 * W4.x4)     --> Term(w=2*Wi*Wj, indices=[i,j])
 #                   + 2(W1.x1 * W2.x2) + 2(W1.x1 * W3.x3) + 2(W1.x1 * W4.x4)
 #                       + 2(W2.x2 * W3.x3) + 2(W2.x2 * W4.x4)
@@ -99,20 +99,13 @@
 #                       + ...
 # 
 
-
-from typing import List
-
 from azure.quantum import Workspace
+from typing import List
 from azure.quantum.optimization import Problem, ProblemType, Term
+import numpy as np
+from itertools import combinations
 from azure.quantum.optimization import ParallelTempering, SimulatedAnnealing, Tabu, HardwarePlatform, QuantumMonteCarlo
 from azure.quantum.optimization.oneqbit import PathRelinkingSolver
-import math
-import numpy as np
-from numpy import mean, absolute
-import multiprocessing
-import os, time
-import time
-from itertools import combinations
 
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
 workspace = Workspace(
