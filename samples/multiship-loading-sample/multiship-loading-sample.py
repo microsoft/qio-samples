@@ -99,20 +99,13 @@
 #                       + ...
 # 
 
-
-from typing import List
-
 from azure.quantum import Workspace
+from typing import List
 from azure.quantum.optimization import Problem, ProblemType, Term
+import numpy as np
+from itertools import combinations
 from azure.quantum.optimization import ParallelTempering, SimulatedAnnealing, Tabu, HardwarePlatform, QuantumMonteCarlo
 from azure.quantum.optimization.oneqbit import PathRelinkingSolver
-import math
-import numpy as np
-from numpy import mean, absolute
-import multiprocessing
-import os, time
-import time
-from itertools import combinations
 
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
 workspace = Workspace(
