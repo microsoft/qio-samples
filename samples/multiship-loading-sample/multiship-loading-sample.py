@@ -34,7 +34,8 @@
 #   C               1 0 0 7 0   (1+7-8.33)^2    = 0.1089
 #
 #   As we need to represent our problem in a binary format we need to "encode" the presence (xi=1) or absence (xi=0) of a given container on a ship.
-#       Using the example above, we duplicate the list of container weights for each ship into a single list of weights:
+#       To do this, we need to have a label for the weight of each container on each ship. The table below shows how we assign this continuous index 
+#       by repeating the list of container weights for each ship and assigning a single list of weight labels across all three ships:
 #           Ship A            Ship B            Ship C
 #           1  5  9  7  3  -  1  5  9  7  3  -  1   5   9   7   3
 #           W0 W1 W2 W3 W4    W5 W6 W7 W8 W9    W10 W11 W12 W13 W14 
@@ -162,6 +163,7 @@ def AddTermsDuplicateContainerCost(start, end, containers):
     #     i1 = containers[c[0]][1]
     #     terms.append(Term(w=w*w, indices=[i1,i1]))              # Wi^2
 
+    # 2.w^2.x_i.x_j terms
     for c in combinations(range(start, end+1), 2):
         w = containers[c[0]][0]
         i1 = containers[c[0]][1]
@@ -174,6 +176,7 @@ def AddTermsDuplicateContainerCost(start, end, containers):
     #     i1 = containers[c[0]][1]
     #     terms.append(Term(w=-2*w*w, indices=[i1]))              # -2*Wi^2
 
+    # w^2 term
     terms.append(Term(w=containers[start][0]*containers[start][0], indices=[]))
 
     return terms
@@ -194,12 +197,12 @@ def createProblemForContainerWeights(containerWeights: List[int], Ships) -> List
     print("Total Weight:", totalWeight)
     print("Equal weight distribution:", EqDistrib)
 
-    # Create fo container weights in this format:
+    # Create container weights in this format:
     # 1  5  9  7  3  - 1  5  9  7  3  - 1   5   9   7   3
     # W0 W1 W2 W3 W4   W5 W6 W7 W8 W9   W10 W11 W12 W13 W14 
     containersWithinShip = containerWeights*len(Ships)
 
-    # Create fo container weights in this format:
+    # Create container weights in this format:
     # 1  1  1  5  5  5  9  9  9  7  7  7  3  3  3
     for i in range(len(containerWeights)):
         for j in range(len(Ships)):
