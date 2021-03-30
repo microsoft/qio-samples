@@ -24,7 +24,7 @@ By working through this sample, you will learn:
 - How to submit problem terms to Azure Quantum
 - How to obtain parameters returned from the parameter-free solvers for use with other parametrized solvers
 
-Before approaching this sample, it is recommended that you complete the ship-loading sample, which can be found in this repository.
+Before approaching this sample, it is recommended that you complete the [ship-loading sample](https://docs.microsoft.com/learn/modules/solve-quantum-inspired-optimization-problems/), which can be found in this repository.
 
 ## Prerequisites
 
