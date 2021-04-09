@@ -12,7 +12,7 @@ description: "Solve the traveling salesman problem with Azure Quantum optimizati
 urlFragment: azure-quantum.traveling-salesman
 ---
 
-# Scheduling jobs with the Azure Quantum optimization service
+# Solving the traveling salesman problem with the Azure Quantum optimization service
 
 ## Introduction
 
