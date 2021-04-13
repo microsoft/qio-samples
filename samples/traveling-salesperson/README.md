@@ -20,13 +20,11 @@ This sample provides a comprehensive walkthrough of the traveling salesperson pr
 
 By working through this sample, you will learn:
 
-- What the traveling salesperson problem is
-- How to represent problem terms mathematically
-- How to build penalty functions to represent problem constraints
-- How to build an objective function to minimize the makespan
-- How to transform these mathematical functions into code using the Azure Quantum Optimization Python SDK
-- How to submit problem terms to Azure Quantum
-- How to verify the results returned by the solver
+- How to solve the traveling salesperson problem with Azure Quantum 
+- Model the problem mathematically to design objective and penalty functions
+- Coding of the optimization problem using the Azure Quantum Optimization Python SDK
+- Verifying results returned by the solver
+- Tips and references to help you choose solver settings
 
 ## Prerequisites
 
@@ -37,11 +35,16 @@ By working through this sample, you will learn:
 
 ## Running the sample
 
-There are two ways to run the sample:
+There are two ways to run the sample (.ipynb and .py):
 
-- [Jupyter Notebook (full sample walkthrough)](./traveling-salesperson.ipynb)
+- [Jupyter Notebook (step-by-step walkthrough)](./traveling-salesperson.ipynb)
 - [Python script (barebones annotations)](./traveling-salesperson.py)
-- [Html script (more readable)](./traveling-salesperson.html)
+
+A html file of the Jupyter notebook is attached for improved readability:
+
+- [Html script (more readable format than Jupyter Notebook)](./traveling-salesperson.html)
+
+![Example of html readable format](./media/traveling-salesperson-html.png)
 
 ### Running the Jupyter Notebook
 
