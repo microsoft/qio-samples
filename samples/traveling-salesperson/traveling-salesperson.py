@@ -71,7 +71,7 @@ def OptProblem(CostMatrix) -> Problem:
                 #print(f'For node_{i}, to node_{j} in trip number {k} costs: {CostMatrix.item((i,j))}')                                         # In a format that is easier to read for a human
     
     ############################################################################################
-    ##### Constraint: Location constraint - salesman can only be in 1 node at a time.
+    ##### Constraint: Location constraint - salesperson can only be in 1 node at a time.
     for l in range(0,len(CostMatrix)+1):                # The total number of nodes that are visited over the route (+1 because returning to starting node)
         for i in range(0,len(CostMatrix)):              # For each origin node
             for j in range(0,len(CostMatrix)):          # For each destination node
@@ -87,7 +87,7 @@ def OptProblem(CostMatrix) -> Problem:
                     #print(f'Location constraint: x_{i+(len(CostMatrix)*l)} - x_{j+(len(CostMatrix)*(l+1))} (trip {l}) assigned weight: {int(10*np.max(CostMatrix))}')  # In a format for the solver (as formulated in the cost function)
     
     ############################################################################################
-    ##### Constraint: Location constraint - encourage the salesman to be 'somewhere' otherwise all x_k might be 0 for example.
+    ##### Constraint: Location constraint - encourage the salesperson to be 'somewhere' otherwise all x_k might be 0 for example.
     for v in range(0,len(CostMatrix)+len(CostMatrix)*(len(CostMatrix))):    # Select variable (v represents a node before/after any trip)
         terms.append(
             Term(
@@ -134,7 +134,7 @@ def OptProblem(CostMatrix) -> Problem:
         )    
     )
 
-    return Problem(name="Traveling Salesman", problem_type=ProblemType.pubo, terms=terms)
+    return Problem(name="Traveling Salesperson", problem_type=ProblemType.pubo, terms=terms)
 
 
 
@@ -153,18 +153,18 @@ def ReadResults(Config: dict, NodeName, CostMatrix, NumNodes):
     ##### Initialize variables to understand the routing    
     TimeStep=[]                                                     # This will contain an array of times/trips - each node is represented during/for each time/trip interval
     Node = []                                                       # This will contain an array of node names 
-    Location = []                                                   # This will contain the locations the salesman is for each time/trip
-    RouteMatrixElements = []                                        # This will contain the indices of the cost matrix representing where the salesman has traveled (to determine total cost)
+    Location = []                                                   # This will contain the locations the salesperson is for each time/trip
+    RouteMatrixElements = []                                        # This will contain the indices of the cost matrix representing where the salesperson has traveled (to determine total cost)
 
     #############################################################################################
-    ##### Go through nodes during each timestep/trip to see where the salesman has been
+    ##### Go through nodes during each timestep/trip to see where the salesperson has been
     for Index in PathChoice:
         TimeStep.append(math.floor(Index[0]/len(CostMatrix)))       # Time step/trip = the k-th is floor of the index diveded by the number of nodes
         Node.append(NodeName[(Index[0]%len(CostMatrix))])           # Append node names for each time step
         Location.append(Index[1])                                   # Append locations for each time step
-        if Index[1] == 1:                                           # Save selected node where the salesman travels to in that trip (if the variable == 1, the salesman goes to that node)
+        if Index[1] == 1:                                           # Save selected node where the salesperson travels to in that trip (if the variable == 1, the salesperson goes to that node)
             RouteMatrixElements.append(Index[0]%len(CostMatrix))    # Save the indices (this returns the row index)
-    SimulationResult = np.array([TimeStep,Node,Location])           # Save all the route data (also where the salesman did not go during a turn/trip/timestep)
+    SimulationResult = np.array([TimeStep,Node,Location])           # Save all the route data (also where the salesperson did not go during a turn/trip/timestep)
  
     #############################################################################################
     ##### Create the route dictionary 
@@ -173,17 +173,17 @@ def ReadResults(Config: dict, NodeName, CostMatrix, NumNodes):
     PathDict['Route'] = {}
     Path = np.array([['Timestep,','Node']])
     for i in range(0,(NumNodes*(NumNodes+1))):
-        if SimulationResult[2][i] == '1':                                                                                   # If the SimulationResult[2][i] (location) == 1, then thats where the salesman goes/went
-            Path = np.concatenate((Path, np.array([[SimulationResult[j][i] for j in range(0,2)]])),axis=0)                  # Add the rows where the salesman DOES travel to Path matrix
+        if SimulationResult[2][i] == '1':                                                                                   # If the SimulationResult[2][i] (location) == 1, then thats where the salesperson goes/went
+            Path = np.concatenate((Path, np.array([[SimulationResult[j][i] for j in range(0,2)]])),axis=0)                  # Add the rows where the salesperson DOES travel to Path matrix
             PathDict['Route'].update({k:Path[k+1][1]})                                                                      # Save the route to a dictionary
             k+=1                                                                                                            # Iterable keeps track for the dictionary, but also allows to check for constraint
     AnalyzeResult(Path, NumNodes)                                                                                           # Check if Path array satisifies other constraints as well (could integrate previous one above in function)
 
     #############################################################################################
-    ###### Calculate the total cost of the route the salesman made (can be in time (minutes) or in distance (km))
+    ###### Calculate the total cost of the route the salesperson made (can be in time (minutes) or in distance (km))
     TotalRouteCost = 0
     for trips in range(0,NumNodes):
-        TotalRouteCost = TotalRouteCost+float(CostMatrix.item(RouteMatrixElements[trips],RouteMatrixElements[trips+1]))     # The sum of the matrix elements where the salesman has been (determined through the indices)
+        TotalRouteCost = TotalRouteCost+float(CostMatrix.item(RouteMatrixElements[trips],RouteMatrixElements[trips+1]))     # The sum of the matrix elements where the salesperson has been (determined through the indices)
     PathDict['RouteCost'] = {'Cost':TotalRouteCost}
 
     ##### Return the simulation result in a human understandable way =)

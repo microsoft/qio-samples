@@ -32,7 +32,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
 - [Ship Loading Sample](./samples/ship-loading/)
 - [Multi-Ship Loading Sample](./samples/multiship-loading-sample)
 - [Job Shop Scheduling Sample](./samples/job-shop-scheduling)
-- [Traveling-Salesman Sample](./samples/traveling-salesman)
+- [Traveling-Salesperson Sample](./samples/traveling-salesperson)
 
 ## Contributing
 
