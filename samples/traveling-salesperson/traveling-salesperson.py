@@ -11,8 +11,8 @@ import json
 import datetime  
 
 from azure.quantum import Workspace
-from azure.quantum.optimization import Problem, ProblemType, Term
-from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, HardwarePlatform
+from azure.quantum.optimization import Problem, ProblemType, Term, HardwarePlatform, Solver
+from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, HardwarePlatform, Tabu, QuantumMonteCarlo
 from azure.quantum.optimization import 
 from typing import List
 
