@@ -4,7 +4,7 @@ languages:
 - python
 author: Maximilian Lucassen
 ms.author: t-mlucassen@microsoft.com
-ms.date: 4/9/2021
+ms.date: 4/13/2021
 products:
 - azure-quantum
 - azure-qio
@@ -20,15 +20,13 @@ This sample provides a comprehensive walkthrough of the traveling salesperson pr
 
 By working through this sample, you will learn:
 
-- What the traveling salesperson problem is and why it is important
+- What the traveling salesperson problem is
 - How to represent problem terms mathematically
 - How to build penalty functions to represent problem constraints
 - How to build an objective function to minimize the makespan
 - How to transform these mathematical functions into code using the Azure Quantum Optimization Python SDK
 - How to submit problem terms to Azure Quantum
-- How to interpret the results
-- How to validate the results
-- How to tune the solver parameters
+- How to verify the results returned by the solver
 
 ## Prerequisites
 
