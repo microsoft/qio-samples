@@ -10,7 +10,7 @@ To run these samples, there are some prerequisites:
 
 1. [Create an Azure Quantum Workspace](https://docs.microsoft.com/azure/quantum/how-to-create-quantum-workspaces-with-the-azure-portal)
 1. [Install Python on your system](https://www.python.org/downloads/)
-1. [Install the `azure-quantum` Python module](https://docs.microsoft.com/azure/quantum/how-to-use-the-python-sdk)
+1. [Install the `azure-quantum` Python module](https://docs.microsoft.com/azure/quantum/optimization-install-sdk)
 1. (Optional) [Install Jupyter Notebook](https://jupyter.org/install)
 
 ## Getting Started
