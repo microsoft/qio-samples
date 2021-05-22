@@ -110,10 +110,8 @@ from azure.quantum.optimization.oneqbit import PathRelinkingSolver
 
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
 workspace = Workspace(
-    subscription_id=    "",
-    resource_group=     "",
-    name=               "",
-    location=           ""
+    resource_id = "", # add the Resource ID of your Azure Quantum workspace
+    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
 )
 
 def visualize_result(result, containers, ships, target):
@@ -245,8 +243,6 @@ def SolveMyProblem(problem, s):
             print("\rJob ID", Job.id, "failed")
     except BaseException as e:
         print(e)
-
-workspace.login()
 
 # Try to call a solver with different timeout value and see if it affects the results
 SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=10))

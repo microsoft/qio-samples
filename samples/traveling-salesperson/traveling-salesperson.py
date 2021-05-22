@@ -16,15 +16,10 @@ from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, Ha
 from typing import List
 
 # Connect to your Azure Quantum Workspace
-workspace = Workspace (
-    subscription_id = "",  # Add your subscription_id
-    resource_group = "",   # Add your resource_group
-    name = "",             # Add your workspace name
-    location = ""          # Add your workspace location (for example, "westus")
+workspace = Workspace(
+    resource_id = "", # add the Resource ID of your Azure Quantum workspace
+    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
 )
-
-# Open the browser and sign in with the generated code (on first login)
-workspace.login()
 
 ### Define variables
 
