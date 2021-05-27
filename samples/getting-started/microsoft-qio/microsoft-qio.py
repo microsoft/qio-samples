@@ -6,14 +6,9 @@ from azure.quantum.optimization import Problem, ProblemType, Term, ParallelTempe
 
 # Workspace information
 workspace = Workspace(
-    subscription_id = "",  # Add your subscription_id
-    resource_group = "",   # Add your resource_group
-    name = "",             # Add your workspace name
-    location = ""          # Add your workspace location (for example, "westus")
+    resource_id = "", # add the Resource ID of your Azure Quantum workspace
+    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
 )
-
-# Login
-workspace.login()
 
 # Define the problem
 problem = Problem(name="My First Problem", problem_type=ProblemType.ising)

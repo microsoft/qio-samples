@@ -12,14 +12,10 @@ from typing import List
 from azure.quantum.optimization import Term
 from azure.quantum import Workspace
 
-workspace = Workspace (
-    subscription_id = "",  # Add your subscription_id
-    resource_group = "",   # Add your resource_group
-    name = "",             # Add your workspace name
-    location = ""          # Add your workspace location (for example, "westus")
+workspace = Workspace(
+    resource_id = "", # add the Resource ID of your Azure Quantum workspace
+    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
 )
-
-workspace.login()
 
 # Precedence constraint
 def precedence_constraint(jobs_ops_map:dict, T:int, processing_time:dict, weight:float):
