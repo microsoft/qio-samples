@@ -6,10 +6,10 @@ from azure.quantum.optimization import Solver, Problem, ProblemType, Term
 
 # Workspace information
 workspace = Workspace (
-  subscription_id = "c445d49a-859d-4681-a32b-a63af698a6f0",
-  resource_group = "experiment",
-  name = "UKWest",
-  location = "ukwest"
+  subscription_id = "",
+  resource_group = "",
+  name = "",
+  location = ""
 )
 
 # Define the problem
