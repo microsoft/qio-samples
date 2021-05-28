@@ -13,11 +13,11 @@ products:
 
 # Python SDK Basic Sample
 
-This sample has demonstrates the basic functionality of the Azure Quantum Python SDK demonstrated in the [Using the Python SDK](https://docs.microsoft.com/azure/quantum/how-to-use-the-python-sdk) guide.
+This sample has demonstrates the basic functionality of the Azure Quantum Python SDK demonstrated in the [Using the Python SDK](https://docs.microsoft.com/azure/quantum/optimization-install-sdk) guide.
 
 ## Prerequisites
 
-To run this sample, please ensure you have [created an Azure Quantum Workspace](https://docs.microsoft.com/azure/quantum/how-to-create-quantum-workspaces-with-the-azure-portal), and followed the [installation steps for the Python SDK](https://docs.microsoft.com/azure/quantum/how-to-use-the-python-sdk).
+To run this sample, please ensure you have [created an Azure Quantum Workspace](https://docs.microsoft.com/azure/quantum/how-to-create-quantum-workspaces-with-the-azure-portal), and followed the [installation steps for the Python SDK](https://docs.microsoft.com/azure/quantum/optimization-install-sdk).
 
 ## Running the sample
 
