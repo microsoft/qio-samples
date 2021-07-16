@@ -20,11 +20,13 @@ This sample provides a comprehensive walkthrough of the traveling salesperson pr
 
 By working through this sample, you will learn:
 
-- How to solve the traveling salesperson problem with Azure Quantum 
+- How to solve the traveling salesperson problem with Azure Quantum
 - Model the problem mathematically to design objective and penalty functions
 - Coding of the optimization problem using the Azure Quantum Optimization Python SDK
 - Verifying results returned by the solver
 - Tips and references to help you choose solver settings
+
+> Please note this sample is intended to demonstrate how to formulate the cost function for a well-understood problem mathematically and then map it to a binary QUBO/PUBO format. The Traveling Salesperson Problem is not a good example of a problem that scales well in this format, as detailed in [this paper](https://arxiv.org/abs/1702.06248).
 
 ## Prerequisites
 
