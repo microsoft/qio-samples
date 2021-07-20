@@ -100,7 +100,6 @@
 #                       + ...
 # 
 
-from azure.quantum import Workspace
 from typing import List
 from azure.quantum.optimization import Problem, ProblemType, Term
 import numpy as np
@@ -108,10 +107,16 @@ from itertools import combinations
 from azure.quantum.optimization import ParallelTempering, SimulatedAnnealing, Tabu, HardwarePlatform, QuantumMonteCarlo
 from azure.quantum.optimization.oneqbit import PathRelinkingSolver
 
+# This allows you to connect to the Workspace you've previously deployed in Azure.
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
-workspace = Workspace(
-    resource_id = "", # add the Resource ID of your Azure Quantum workspace
-    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
+from azure.quantum import Workspace
+
+# Copy the settings for your workspace below
+workspace = Workspace (
+    subscription_id = "",
+    resource_group = "",
+    name = "",
+    location = ""
 )
 
 def visualize_result(result, containers, ships, target):
