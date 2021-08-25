@@ -410,6 +410,42 @@ makespan = max(op_end_times)
 
 print(f"\nMakespan (time taken to complete all operations): {makespan}\n")
 
+# Visualize results
+import plotly.express as px
+import pandas as pd
+from datetime import datetime, time
+
+# Graphics
+machines = [None] * len(ops_jobs_map)
+for m, ops in machines_ops_map.items():
+    for op in ops:
+      machines[op] = m
+
+ops = list(ops_jobs_map.keys())
+
+# Create data frame
+d = {'Operation': ops, 'Machine': machines, 'Start time': op_start_times, 'Finish time': op_end_times}
+df = pd.DataFrame(data=d)
+df['delta'] = processing_time.values()
+
+# Produce plot
+fig = px.timeline(df, x_start='Start time', x_end='Finish time', y='Operation', color='Machine', title='Job Shop Schedule')
+
+fig.update_yaxes(autorange="reversed")
+fig.update_layout(
+    font_family="Segoe UI",
+    title_font_family="Segoe UI",
+    width=800,
+    height=800,
+)
+fig.layout.xaxis.type = 'linear'
+fig.data[0].x = df.delta.tolist()
+fig.update_layout(
+    xaxis_title="Time step",
+)
+fig.update_yaxes(tick0=0, dtick=1)
+fig.update_xaxes(tick0=0, dtick=1)
+fig.show()
 
 # For this small problem instance, the solver quickly returned a solution. For bigger, more complex problems you may need to run the job asynchronously, as shown earlier in this sample.
 
