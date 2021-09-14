@@ -24,7 +24,6 @@ This amounts to a binary satisfiability problem, as outlined in the Jupyter Note
 1. [Create an Azure Quantum Workspace](https://docs.microsoft.com/azure/quantum/optimization-install-sdk)
 2. [Install the `azure-quantum` Python module](https://docs.microsoft.com/azure/quantum/optimization-install-sdk)
 3. (If you want to run the Jupyter notebook) [Install Jupyter Notebook](https://jupyter.org/install)
-4. [Complete the secret santa sample](https://github.com/microsoft/qio-samples/tree/main/samples/secret-santa)
 
 ## Running the sample
 
