@@ -11,7 +11,7 @@ description: "Learn how to represent a Secret Santa draw as a binary problem and
 urlFragment: azure-quantum.secret-santa
 ---
 
-# Solving the secret santa scenario with the Azure Quantum optimization service
+# Solving the Secret Santa scenario with the Azure Quantum optimization service
 
 ## Introduction
 
