@@ -15,7 +15,7 @@ urlFragment: azure-quantum.secret-santa
 
 ## Introduction
 
-This sample provides a very simple way to get started with optimization.  Vincent, Tess, and Uma write their names on slips of paper and place them in a jar.  Then, each draws a slip of paper at random and buys a small gift and writes a poem for the person whose name they drew.  We will automate this process.
+This sample provides a simple example of how to solve an optimization problem using Azure Quantum. In the example, three friends Vincent, Tess, and Uma participate in a Secret Santa draw by writing their names on slips of paper and placing them in a jar. Then, each draws a slip of paper at random and buys a small gift and writes a poem for the person whose name they drew. We will automate this process.
 
 This amounts to a binary satisfiability problem, as outlined in the Jupyter Notebook for this sample.
 
