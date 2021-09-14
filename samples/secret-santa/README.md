@@ -7,7 +7,7 @@ ms.author: delbertm@microsoft.com
 products:
 - azure-qio
 - azure-quantum
-description: "Learn how to solve a binary optimization problem using the Azure Quantum optimization service"
+description: "Learn how to represent a Secret Santa draw as a binary problem and solve it using the Azure Quantum optimization service"
 urlFragment: azure-quantum.secret-santa
 ---
 
