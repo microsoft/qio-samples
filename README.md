@@ -34,6 +34,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
 - [Job Shop Scheduling Sample](./samples/job-shop-scheduling)
 - [Traveling Salesperson Sample](./samples/traveling-salesperson)
 - [Access to solvers not available in the QDK yet](./samples/weak-typing-solver-use)
+- [Quadratic Assignment Problem](./samples/quadratic-assignment-problem) (uses squared linear combination term preview)
 
 ## Contributing
 
