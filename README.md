@@ -30,6 +30,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
   - [1QBit](./samples/getting-started/1qbit)
   - [Microsoft QIO](./samples/getting-started/microsoft-qio)
 - [Ship Loading Sample](./samples/ship-loading/)
+  - [Ship Loading Sample using squared linear combination term preview](./samples/ship-loading-slc/)
 - [Multi-Ship Loading Sample](./samples/multiship-loading-sample)
 - [Job Shop Scheduling Sample](./samples/job-shop-scheduling)
 - [Traveling Salesperson Sample](./samples/traveling-salesperson)
