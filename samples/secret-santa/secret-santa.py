@@ -37,7 +37,7 @@ def build_terms(i: int, j: int):
 
     return terms
 
-# Helper funciton to interpret the answer returned by the service in a human-readable way:
+# Helper function to interpret the answer returned by the service in a human-readable way:
 def print_results(config: dict) :
     """
     print results of run
