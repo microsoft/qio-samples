@@ -16,6 +16,15 @@ from typing import List
 from azure.quantum import Workspace
 from azure.quantum.optimization import Problem, ProblemType, Term, SimulatedAnnealing 
 
+# Sign into your Azure Quantum workspace
+# Copy the settings for your workspace below
+workspace = Workspace(
+    subscription_id = "",
+    resource_group = "",
+    name = "",
+    location = ""
+)
+
 # Helper function to build terms with indices i, j:
 def build_terms(i: int, j: int):
     """
@@ -58,14 +67,6 @@ def print_results(config: dict) :
             print(result[key])
 
 # Bringing it all together:
-# Sign into your Azure Quantum workspace
-# Copy the settings for your workspace below
-workspace = Workspace(
-    subscription_id = "",
-    resource_group = "",
-    name = "",
-    location = ""
-)
 
 """
 build secret santa matrix

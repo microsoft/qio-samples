@@ -13,7 +13,7 @@ import time
 from typing import List
 from azure.quantum import Workspace
 from azure.quantum.optimization import SubstochasticMonteCarlo
-from azure.quantum.optimization import Problem, ProblemType, Term, SlcTerm, GroupType
+from azure.quantum.optimization import Problem, ProblemType, Term, SlcTerm, GroupType, RangeSchedule
 
 workspace = Workspace (
   subscription_id = "",
@@ -27,8 +27,6 @@ workspace = Workspace (
 # for details on the problem formulation - more context can also be found in the jupyter version of this sample
 
 # define weights of the containers to be loaded
-
-from azure.quantum.target.solvers import RangeSchedule
 weights = [
     2, 5, 9, 21, 35, 5, 3, 5, 10, 11,
     23, 13, 8, 7, 12, 19, 22, 54, 33,
