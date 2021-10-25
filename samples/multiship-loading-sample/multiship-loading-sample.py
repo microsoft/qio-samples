@@ -237,12 +237,12 @@ problem = Problem(name=problemName, problem_type=ProblemType.pubo, terms=terms)
 def SolveMyProblem(problem, s):
     try:
         # Optimize the problem
-        print("Optimizing with:", s.target)
+        print("Optimizing with:", s.name)
         Job = s.submit(problem)
         Job.wait_until_completed()
         duration = Job.details.end_execution_time - Job.details.begin_execution_time
         if (Job.details.status == "Succeeded"):
-            visualize_result(Job.get_results(), containerWeights*len(Ships), Ships, s.target)
+            visualize_result(Job.get_results(), containerWeights*len(Ships), Ships, s.name)
             print("Execution duration: ", duration)
         else:
             print("\rJob ID", Job.id, "failed")

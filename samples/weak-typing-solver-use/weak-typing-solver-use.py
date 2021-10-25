@@ -41,6 +41,6 @@ solvers_name = [
 
 for solver_name in solvers_name:
     s = Solver(workspace, "Microsoft", solver_name, "microsoft.qio.v2", "microsoft.qio-results.v2")
-    print("\nOptimizing with:", s.target)
+    print("\nOptimizing with:", s.name)
     result = s.optimize(problem)
     print(result)
