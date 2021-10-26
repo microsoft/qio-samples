@@ -3,7 +3,7 @@
 
 from azure.quantum import Workspace
 from azure.quantum.optimization import Problem, ProblemType, Term
-from azure.quantum.optimization.oneqbit import TabuSearch, PticmSolver, PathRelinkingSolver
+from azure.quantum.target.oneqbit import TabuSearch, PticmSolver, PathRelinkingSolver
 import time
 
 # Workspace information
