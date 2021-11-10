@@ -13,7 +13,8 @@ products:
 
 # Python SDK Basic Sample
 
-This sample has demonstrates the basic functionality of the Azure Quantum Python SDK demonstrated in the [Using the Python SDK](https://docs.microsoft.com/azure/quantum/optimization-install-sdk) guide.
+This folder has two samples tp demonstrates the basic functionality of the Azure Quantum Python SDK demonstrated in the [Using the Python SDK](https://docs.microsoft.com/azure/quantum/optimization-install-sdk) guide.
+The first sample, `microsoft-qio.py` shows how to submit a simple optimization problem. The sample `microsoft-qio-pb.py` shows how to submit a problem with the protobuf input data serialization.
 
 ## Prerequisites
 
@@ -25,4 +26,8 @@ To run the sample, run:
 
 ```bash
 python microsoft-qio.py
+```
+
+```bash
+python microsoft-qio-pb.py
 ```
