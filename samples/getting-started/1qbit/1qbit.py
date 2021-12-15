@@ -7,10 +7,11 @@ from azure.quantum.target.oneqbit import TabuSearch, PticmSolver, PathRelinkingS
 import time
 
 # Workspace information
-workspace = Workspace(
-    resource_id = "", # add the Resource ID of your Azure Quantum workspace
-    location = ""     # add the location of your Azure Quantum workspace (e.g. "westus")
-)
+workspace = Workspace (
+  subscription_id = "c735e742-dc25-4581-8d73-f52f5c82c638",
+  resource_group = "quarch",
+  name = "quarch",
+  location = "westus"
 
 # Define the problem
 problem = Problem(name="My First 1QBit Problem", problem_type=ProblemType.ising)
