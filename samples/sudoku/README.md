@@ -47,9 +47,7 @@ A html file of the Jupyter notebook is attached for improved readability:
 
 To run this sample, use the commandline to navigate to the `sudoku` folder and run `jupyter notebook`
 
-Your web browser should automatically open a new window showing something similar to the below:
-
-![Jupyter Notebook landing page](./media/SudokuSolver.png)
+Your web browser should automatically open a new window.
 
 If this doesn't happen, copy the localhost link shown in the terminal window and paste it into your browser's address bar.
 
