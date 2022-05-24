@@ -28,6 +28,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
 
 - [Getting Started](./samples/getting-started/)
   - [1QBit](./samples/getting-started/1qbit)
+  - [Toshiba SQBM+](./samples/getting-started/toshiba-sqbm)
   - [Microsoft QIO](./samples/getting-started/microsoft-qio)
 - [Ship Loading Sample](./samples/ship-loading/)
   - [Ship Loading Sample using squared linear combination term preview](./samples/ship-loading-slc/)
