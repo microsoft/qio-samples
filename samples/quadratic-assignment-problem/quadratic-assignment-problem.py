@@ -106,7 +106,7 @@ print(f"Number of monimial terms: {len(problem.terms)}, number of grouped terms:
 print(f"\nGrouped terms: {problem.terms_slc}")
 
 # Submitting problem to the Azure Quantum solver
-# The SlcTerm functionality is only available on the Population Annealing and Substochastic Monte Carlo solvers. 
+# The SlcTerm functionality is available for all Microsoft QIO CPU solvers. 
 # For this sample we will use the population annealing solver with its default parameters (since the problem is trivial).
 
 solver = PopulationAnnealing(
