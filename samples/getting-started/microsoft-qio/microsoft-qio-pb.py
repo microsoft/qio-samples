@@ -1,7 +1,9 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-from azure.quantum.optimization import Problem, ProblemType, Term, PopulationAnnealing, SubstochasticMonteCarlo, ContentType
+# Note: Protobuf support is available for all Microsoft QIO CPU solvers
+from azure.quantum.optimization import Problem, ProblemType, Term, ParallelTempering, PopulationAnnealing, QuantumMonteCarlo, SimulatedAnnealing, SubstochasticMonteCarlo, Tabu
+from azure.quantum.job.base_job import ContentType
 
 # This allows you to connect to the Workspace you've previously deployed in Azure.
 # Be sure to fill in the settings below which can be retrieved by running 'az quantum workspace show' in the terminal.
