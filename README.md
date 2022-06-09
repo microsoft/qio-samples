@@ -31,7 +31,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
   - [Toshiba SQBM+](./samples/getting-started/toshiba-sqbm)
   - [Microsoft QIO](./samples/getting-started/microsoft-qio)
 - [Ship Loading Sample](./samples/ship-loading/)
-  - [Ship Loading Sample using squared linear combination term preview](./samples/ship-loading-slc/)
+  - [Ship Loading Sample using squared linear combination terms](./samples/ship-loading-slc/)
 - [Multi-Ship Loading Sample](./samples/multiship-loading-sample)
 - [Job Shop Scheduling Sample](./samples/job-shop-scheduling)
 - [Traveling Salesperson Sample](./samples/traveling-salesperson)
