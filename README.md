@@ -37,7 +37,7 @@ We recommend starting with the [ship loading sample](./samples/ship-loading/) be
 - [Traveling Salesperson Sample](./samples/traveling-salesperson)
 - [Secret Santa Sample](./samples/secret-santa)
 - [Access to solvers not available in the QDK yet](./samples/weak-typing-solver-use)
-- [Quadratic Assignment Problem](./samples/quadratic-assignment-problem) (uses squared linear combination term preview)
+- [Quadratic Assignment Problem](./samples/quadratic-assignment-problem) (uses squared linear combination terms)
 
 ## Contributing
 
