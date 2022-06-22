@@ -33,7 +33,7 @@ weights = [
 ]
 
 # Instantiate a solver
-# Only Substochastic Monte Carlo and Population Annealing support squared linear terms at the time of writing
+# All Microsoft QIO CPU solvers support squared linear terms at the time of writing
 
 solver = SubstochasticMonteCarlo(
     workspace,
@@ -62,7 +62,7 @@ def createFBP_expanded(weights: List[int]) -> Problem:
 
 problem_expanded = createFBP_expanded(weights)
 
-# Create the factored cost function (using slc terms) 
+# Create the factored cost function (using Slc terms) 
 # This allows us to compare the efficiency of the two approaches
 
 def createFBP_factored(weights: List[int]) -> Problem:
@@ -92,7 +92,7 @@ print('Submitting expanded problem...')
 start = time.time()
 result = solver.optimize(problem_expanded)
 
-# print time so that we can compare
+# Print time so that we can compare
 timeElapsed = time.time() - start
 print('Result in {:.1f} seconds: '.format(timeElapsed), result)
 
@@ -107,6 +107,6 @@ print('Submitting factored problem...')
 start = time.time()
 result = solver.optimize(problem_factored)
 
-# print time so that we can compare
+# Print time so that we can compare
 timeElapsed = time.time() - start
 print('Result in {:.1f} seconds: '.format(timeElapsed), result)
