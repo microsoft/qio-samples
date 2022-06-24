@@ -7,8 +7,8 @@ from azure.quantum.target.toshiba import SimulatedBifurcationMachine
 
 # Copy the settings for your workspace below
 workspace = Workspace(
-    resource_id = "/subscriptions/b5c28c80-889c-4919-8e6b-3569c950646e/resourceGroups/AQDW3-new/providers/Microsoft.Quantum/Workspaces/AQDW-workspace-new",   # add the Resource ID of the Azure Quantum workspace you created with the Toshiba provider
-    location = "westus2"
+    resource_id = "",   # add the Resource ID of the Azure Quantum workspace you created with the Toshiba provider
+    location = ""
 )
 
 # Define the problem
