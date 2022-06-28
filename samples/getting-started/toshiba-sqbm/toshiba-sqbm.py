@@ -32,7 +32,7 @@ print("Submitting first problem (default params):")
 result = solver.optimize(problem)
 
 # Print out the result
-print("result")
+print(result)
 
 # Create Toshiba SQBM+ solver, specifically choosing to use the high-speed
 # Ballistic Simulated Bifurcation algorithm (bSB), designed to find a good solution in a short time
@@ -45,7 +45,7 @@ problem.name = "bSB algorithm test problem"
 # Submit the problem 
 print("\nSubmitting bSB problem:")
 result = solver.optimize(problem)
-print("result")
+print(result)
 
 # Create Toshiba SQBM+ solver, specifically choosing to use the high-accuracy 
 # Discrete Simulated Bifurcation algorithm (dSB) which finds more accurate solutions
@@ -58,7 +58,7 @@ problem.name = "dSB algorithm test problem"
 # Submit the problem 
 print("\nSubmitting dSB problem:")
 result = solver.optimize(problem)
-print("result")
+print(result)
 
 # Create Toshiba SQBM+ solver, making use of the auto-tune function provided
 # which will select the best algorithm and parameters to use based on problem characteristics
@@ -70,4 +70,4 @@ problem.name = "auto-select algorithm test problem"
 # Submit the problem 
 print("\nSubmitting auto-select problem:")
 result = solver.optimize(problem)
-print("result")
+print(result)
