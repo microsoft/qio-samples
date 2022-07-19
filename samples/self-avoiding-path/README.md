@@ -4,7 +4,7 @@ languages:
 - python
 author: Maximilian Lucassen
 ms.author: maxlucassen@microsoft.com
-ms.date: 4/22/2022
+ms.date: 7/19/2022
 products:
 - azure-quantum
 - azure-qio
