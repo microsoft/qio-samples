@@ -7,20 +7,20 @@ ms.author: frances.tibble@microsoft.com
 products:
 - azure-qio
 - azure-quantum
-description: "Learn how to solve a binary optimization problem using the Azure Quantum optimization service"
+description: "Learn how to solve a binary optimization problem using the Azure Quantum service"
 urlFragment: azure-quantum.multiship-problem
 ---
 
-# Solving the multi-ship loading problem with the Azure Quantum optimization service
+# Solving the multi-ship loading problem with optimization solvers and the Azure Quantum service
 
 ## Introduction
 
-This sample provides a comprehensive walkthrough of the multi-ship loading problem, from multiple sub-problem definitions to using the Azure Quantum Optimization Service to obtain results and help choose solver parameters. This is an intermediate-level sample.
+This sample provides a comprehensive walkthrough of the multi-ship loading problem, from multiple sub-problem definitions to using optimization solver and the Azure Quantum service to obtain results and help choose solver parameters. This is an intermediate-level sample.
 
 By working through this sample, you will learn:
 
 - How to tackle the multi-ship loading problem
-- How to define two sub cost-functions and transform these mathematical functions into code using the Azure Quantum Optimization Python SDK
+- How to define two sub cost-functions and transform these mathematical functions into code using the Azure Quantum Python SDK
 - How to submit problem terms to Azure Quantum
 - How to obtain parameters returned from the parameter-free solvers for use with other parametrized solvers
 
@@ -42,7 +42,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `multiship-loading-sample` folder and run `jupyter notebook`.
+To run this sample, use the command line to navigate to the `multiship-loading-sample` folder and run `jupyter notebook`.
 
 Your web browser should automatically open a new window showing something similar to the below:
 

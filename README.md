@@ -1,8 +1,8 @@
-# Azure Quantum optimization service samples
+# Azure Quantum optimization samples
 
-These samples demonstrate the use of the Azure Quantum QIO service.
+These samples demonstrate the use of quantum-inspired optimization (QIO) in the Azure Quantum service.
 
-Each sample is self-contained in a folder, and demonstrates how to use the QIO service to solve a problem.
+Each sample is self-contained in a folder, and demonstrates how to use the QIO solver in Azure Quantum to solve a problem.
 
 ## Prerequisites
 
@@ -15,9 +15,9 @@ To run these samples, there are some prerequisites:
 
 ## Getting Started
 
-If you're new to the Azure Quantum QIO service, we recommend starting with the [Getting Started samples](./samples/getting-started/), which run through how to set up and submit problems to be solved using the service.
+If you're new to optimization with the Azure Quantum service, we recommend starting with the [Getting Started samples](./samples/getting-started/), which run through how to set up and submit problems to be solved using the service.
 
-After that, we recommend exploring the other samples in this repository, which demonstrate the use of the Azure Quantum QIO service to solve specific optimization problems. We recommend that you use the Jupyter Notebook versions of these samples if you are new to the QIO service as they contain detailed, step-by-step instructions on how to formulate and solve the problem instance.
+After that, we recommend exploring the other samples in this repository, which demonstrate the use of the Azure Quantum service to solve specific optimization problems. We recommend that you use the Jupyter Notebook versions of these samples if you are new to the Azure Quantum service as they contain detailed, step-by-step instructions on how to formulate and solve the problem instance.
 
 We recommend starting with the [ship loading sample](./samples/ship-loading/) before moving on to the [job shop scheduling sample](./samples/job-shop-scheduling), as job shop scheduling introduces some more complex ideas, so it is useful to understand the basics of problem formulation first. Both of these problems have associated Microsoft Learn modules which you can find here:
 

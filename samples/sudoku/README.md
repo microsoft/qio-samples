@@ -8,21 +8,21 @@ ms.date: 4/22/2022
 products:
 - azure-quantum
 - azure-qio
-description: "Solve sudokus with Azure Quantum optimization service"
+description: "Solve sudokus with Azure Quantum service"
 urlFragment: azure-quantum.sudoku
 ---
 
-# Solving sudokus with the Azure Quantum optimization service
+# Solving sudokus using optimization solvers with the Azure Quantum service
 
 ## Introduction
 
-This sample provides a walkthrough on how to solve sudokus with Azure QIO solvers, from problem definition to formulation of constraints to submitting the problem to the Azure QIO Service.
+This sample provides a walkthrough on how to solve sudokus with Microsoft QIO solvers and the Azure Quantum service, from problem definition to formulation of constraints to submitting the problem to the Azure Quantum service.
 
 By working through this sample, you will learn:
 
 - How to solve sudokus with Azure Quantum
 - Model the problem mathematically to design objective and penalty functions
-- Coding of the optimization problem using the Azure Quantum Optimization Python SDK
+- Coding of the optimization problem using the Azure Quantum Python SDK
 - Verifying results returned by the solver
 
 ## Prerequisites
@@ -45,7 +45,7 @@ A html file of the Jupyter notebook is attached for improved readability:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `sudoku` folder and run `jupyter notebook`
+To run this sample, use the command line to navigate to the `sudoku` folder and run `jupyter notebook`
 
 Your web browser should automatically open a new window.
 
@@ -57,7 +57,7 @@ Once you see the page above, simply click on the `SudokuSolver.ipynb` link to op
 
 - Open up the `SudokuSolver.py` script using your favorite IDE or a text editor.
 - Fill in your Azure Quantum workspace details at the beginning of the script.
-- Run the script through your IDE or use the commandline to navigate to the `sudoku` folder and then run `python ./SudokuSolver.py` or `python3 ./SudokuSolver.py` (depending on how your environment is set up).
+- Run the script through your IDE or use the command line to navigate to the `sudoku` folder and then run `python ./SudokuSolver.py` or `python3 ./SudokuSolver.py` (depending on how your environment is set up).
 
 ### Manifest
 

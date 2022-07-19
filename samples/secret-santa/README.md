@@ -7,11 +7,11 @@ ms.author: delbertm@microsoft.com
 products:
 - azure-qio
 - azure-quantum
-description: "Learn how to represent a Secret Santa draw as a binary problem and solve it using the Azure Quantum optimization service"
+description: "Learn how to represent a Secret Santa draw as a binary problem and solve it using the Azure Quantum service"
 urlFragment: azure-quantum.secret-santa
 ---
 
-# Solving the Secret Santa scenario with the Azure Quantum optimization service
+# Solving the Secret Santa scenario with optimization solvers and the Azure Quantum service
 
 ## Introduction
 
@@ -34,7 +34,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `secret-santa` folder and run `jupyter notebook`.
+To run this sample, use the command line to navigate to the `secret-santa` folder and run `jupyter notebook`.
 
 Your web browser should automatically open a new window showing something similar to the below:
 

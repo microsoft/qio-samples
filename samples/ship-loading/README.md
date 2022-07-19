@@ -7,22 +7,22 @@ ms.author: frances.tibble@microsoft.com
 products:
 - azure-qio
 - azure-quantum
-description: "Learn how to solve a binary optimization problem using the Azure Quantum optimization service"
+description: "Learn how to solve a binary optimization problem using the Azure Quantum service"
 urlFragment: azure-quantum.job-shop-problem
 ---
 
-# Solving the ship loading problem with the Azure Quantum optimization service
+# Solving the ship loading problem using optimization solvers with the Azure Quantum service
 
 ## Introduction
 
-This sample provides a comprehensive walkthrough of the ship loading problem, from problem definition to formulation of penalty functions and finally solving the problem using the Azure Quantum Optimization Service. This is an introductory-level sample.
+This sample provides a comprehensive walkthrough of the ship loading problem, from problem definition to formulation of penalty functions and finally solving the problem using optimization solvers with the Azure Quantum service. This is an introductory-level sample.
 
 By working through this sample, you will learn:
 
 - What the ship loading problem is
 - How to represent problem terms mathematically
 - How to build penalty functions to represent problem constraints
-- How to transform these mathematical functions into code using the Azure Quantum Optimization Python SDK
+- How to transform these mathematical functions into code using the Azure Quantum Python SDK
 - How to submit problem terms to Azure Quantum
 - How to interpret the results
 
@@ -41,7 +41,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `shipping-sample` folder and run `jupyter notebook`.
+To run this sample, use the command line to navigate to the `shipping-sample` folder and run `jupyter notebook`.
 
 Your web browser should automatically open a new window showing something similar to the below:
 
