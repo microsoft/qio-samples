@@ -40,7 +40,7 @@ There are two ways to run the sample (.ipynb and .py):
 - [Jupyter Notebook (step-by-step walkthrough)](./self-avoiding-path.ipynb)
 - [Python script (barebones annotations)](./self-avoiding-path.py)
 
-A html file of the Jupyter notebook is attached for improved readability:
+A html file of the Jupyter notebook is attached for improved readability of the equations (tables aren't rendered correctly, however):
 
 - [Html page (more readable format than Jupyter Notebook)](./self-avoiding-path.html)
 
