@@ -24,7 +24,7 @@ By working through this sample, you will learn:
 - Coding of the optimization problem using the Azure Quantum Optimization Python SDK
 - Verifying results returned by the solver. 
 
-The work presented in this folder is based on the following [paper](https://arxiv.org/abs/1811.00713). 
+The work presented in this folder is based on the following [paper - https://arxiv.org/abs/1811.00713](https://arxiv.org/abs/1811.00713). 
 
 ## Prerequisites
 
