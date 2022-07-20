@@ -47,7 +47,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the command line to navigate to the `kapsack` folder and run 
+To run this sample, use the command line to navigate to the `knapsack` folder and run 
 
 ```shell
 jupyter notebook
