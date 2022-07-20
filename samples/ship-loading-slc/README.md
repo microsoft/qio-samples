@@ -18,9 +18,10 @@ urlFragment: azure-quantum.ship-loading-slc
 
 This sample provides a walkthrough of how you can adapt our ship loading sample and make it work with the squared linear combination term type `SlcTerm`. This produces a more efficient problem formulation that will be quicker to upload and faster to process through the solvers that support it. 
 
-Like the original sample this uses Azure Quantum's optimization service.
+Like the original sample this uses optimization solver with the Azure Quantum service.
 
 By working through this sample, you will learn:
+
 - How to introduce the squared linear combination term, `SlcTerm`, in an existing optimization problem
 - How to measure the difference in execution speed
 - How to compare solution quality between a problem formulation with purely monomial terms and one with grouped terms
@@ -41,14 +42,14 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `ship-loading-sample-slc` folder and run `jupyter notebook`.
-Once in the UI, simply click the Jupter notebook file to get started. Follow the instructions in the notebook.
+To run this sample, use the command line to navigate to the `ship-loading-sample-slc` folder and run `jupyter notebook`.
+Once in the UI, simply click the Jupyter Notebook file to get started. Follow the instructions in the notebook.
 
 ### Running the Python script
 
 - Open up the `ship-loading-sample-slc.py` script using your favorite IDE or a text editor.
 - Fill in your Azure Quantum workspace details at the beginning of the script.
-- Run the script through your IDE or use the commandline to navigate to the folder where you downloaded the script and then run `python ./ship-loading-sample-slc.py` or `python3 ./ship-loading-sample-slc.py` (depending on how your environment is set up).
+- Run the script through your IDE or use the command line to navigate to the folder where you downloaded the script and then run `python ./ship-loading-sample-slc.py` or `python3 ./ship-loading-sample-slc.py` (depending on how your environment is set up).
 
 ### Manifest
 

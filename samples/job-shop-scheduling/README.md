@@ -8,15 +8,15 @@ ms.date: 01/25/2021
 products:
 - azure-quantum
 - azure-qio
-description: "Solve a job shop scheduling problem using the Azure Quantum optimization service"
+description: "Solve a job shop scheduling problem using optimization with the Azure Quantum service"
 urlFragment: azure-quantum.job-shop-problem
 ---
 
-# Scheduling jobs with the Azure Quantum optimization service
+# Scheduling optimization jobs with the Azure Quantum service
 
 ## Introduction
 
-This sample provides a comprehensive walkthrough of the job shop scheduling problem, from problem definition to formulation of penalty functions and finally solving the problem using the Azure Quantum Optimization Service.
+This sample provides a comprehensive walkthrough of the job shop scheduling problem, from problem definition to formulation of penalty functions and finally solving the problem using an optimization solver in the Azure Quantum service.
 
 By working through this sample, you will learn:
 
@@ -46,7 +46,7 @@ There are two ways to run the sample:
 
 ### Running the Jupyter Notebook
 
-To run this sample, use the commandline to navigate to the `job-shop-sample` folder and run `jupyter notebook`
+To run this sample, use the command line to navigate to the `job-shop-sample` folder and run `jupyter notebook`
 
 Your web browser should automatically open a new window showing something similar to the below:
 
@@ -60,7 +60,7 @@ Once you see the page above, simply click on the `job-shop-sample.ipynb` link to
 
 - Open up the `job-shop-sample.py` script using your favorite IDE or a text editor.
 - Fill in your Azure Quantum workspace details at the beginning of the script.
-- Run the script through your IDE or use the commandline to navigate to the `job-shop-sample` folder and then run `python ./job-shop-sample.py` or `python3 ./job-shop-sample.py` (depending on how your environment is set up).
+- Run the script through your IDE or use the command line to navigate to the `job-shop-sample` folder and then run `python ./job-shop-sample.py` or `python3 ./job-shop-sample.py` (depending on how your environment is set up).
 
 ### Manifest
 

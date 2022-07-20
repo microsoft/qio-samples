@@ -1,7 +1,7 @@
-# Getting Started with the Azure Quantum Optimization Service #
+# Getting Started with optimization in the Azure Quantum service #
 
 - **[1QBit](./1qbit/)**:
-  This sample demonstrates how to submit a simple job to the 1QBit optimization service in Azure Quantum.
+  This sample demonstrates how to submit a simple job with the 1QBit optimization solver in Azure Quantum.
 
 - **[Microsoft QIO](./microsoft-qio/)**:
-  This sample demonstrates how to submit a simple job to the Microsoft QIO service in Azure Quantum.
+  This sample demonstrates how to submit a simple job with the Microsoft QIO solver in Azure Quantum.
