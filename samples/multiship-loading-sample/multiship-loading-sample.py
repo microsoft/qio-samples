@@ -258,7 +258,6 @@ SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=10))
 # Try using the parameters returned by the parameter free versions and observe the significant performance improvement
 SolveMyProblem(problem, SimulatedAnnealing(workspace, timeout=5, beta_start=8.086689309396733e-05, beta_stop=7.594132985765675, restarts=360, sweeps=50))
 
-# SolveMyProblem(problem, SimulatedAnnealing(workspace, platform=HardwarePlatform.FPGA, timeout=5))
 # SolveMyProblem(problem, Tabu(workspace, timeout=5))
 # SolveMyProblem(problem, ParallelTempering(workspace, timeout=60))
 # SolveMyProblem(problem, QuantumMonteCarlo(workspace))
