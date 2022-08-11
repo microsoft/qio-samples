@@ -104,7 +104,7 @@ from typing import List
 from azure.quantum.optimization import Problem, ProblemType, Term
 import numpy as np
 from itertools import combinations
-from azure.quantum.optimization import ParallelTempering, SimulatedAnnealing, Tabu, HardwarePlatform, QuantumMonteCarlo
+from azure.quantum.optimization import ParallelTempering, SimulatedAnnealing, Tabu, QuantumMonteCarlo
 from azure.quantum.target.oneqbit import PathRelinkingSolver
 
 # This allows you to connect to the Workspace you've previously deployed in Azure.

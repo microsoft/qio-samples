@@ -10,8 +10,8 @@ import requests
 import json
 import datetime  
 
-from azure.quantum.optimization import Problem, ProblemType, Term, HardwarePlatform, Solver
-from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, HardwarePlatform, Tabu, QuantumMonteCarlo
+from azure.quantum.optimization import Problem, ProblemType, Term, Solver
+from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, Tabu, QuantumMonteCarlo
 from typing import List
 
 # This allows you to connect to the Workspace you've previously deployed in Azure.
