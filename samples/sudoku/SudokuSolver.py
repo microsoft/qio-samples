@@ -6,7 +6,7 @@ from collections import defaultdict
 from azure.identity import ClientSecretCredential
 from azure.quantum import Workspace
 from azure.quantum.optimization import Problem, ProblemType, Term
-from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, Tabu, QuantumMonteCarlo, HardwarePlatform, Solver
+from azure.quantum.optimization import SimulatedAnnealing, ParallelTempering, Tabu, QuantumMonteCarlo, Solver
 
 
 ##### Fill in your workspace details to connect to the Azure QIO solvers.
