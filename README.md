@@ -1,5 +1,7 @@
 # Azure Quantum optimization samples
 
+> Please note that Microsoft QIO solvers will be deprecated and no longer available in Azure Quantum after June 30th 2023.
+
 These samples demonstrate the use of quantum-inspired optimization (QIO) in the Azure Quantum service.
 
 Each sample is self-contained in a folder, and demonstrates how to use the QIO solver in Azure Quantum to solve a problem.
