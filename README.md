@@ -15,32 +15,10 @@ To run these samples, there are some prerequisites:
 1. [Install the `azure-quantum` Python module](https://docs.microsoft.com/azure/quantum/optimization-install-sdk)
 1. (Optional) [Install Jupyter Notebook](https://jupyter.org/install)
 
-## Getting Started
-
-If you're new to optimization with the Azure Quantum service, we recommend starting with the [Getting Started samples](./samples/getting-started/), which run through how to set up and submit problems to be solved using the service.
-
-After that, we recommend exploring the other samples in this repository, which demonstrate the use of the Azure Quantum service to solve specific optimization problems. We recommend that you use the Jupyter Notebook versions of these samples if you are new to the Azure Quantum service as they contain detailed, step-by-step instructions on how to formulate and solve the problem instance.
-
-We recommend starting with the [ship loading sample](./samples/ship-loading/) before moving on to the [job shop scheduling sample](./samples/job-shop-scheduling), as job shop scheduling introduces some more complex ideas, so it is useful to understand the basics of problem formulation first. Both of these problems have associated Microsoft Learn modules which you can find here:
-
-- [Ship loading](https://docs.microsoft.com/learn/modules/solve-quantum-inspired-optimization-problems/)
-- [Job shop scheduling](https://docs.microsoft.com/learn/modules/solve-job-shop-optimization-azure-quantum/)
-
 ## List of Available Samples
 
-- [Getting Started](./samples/getting-started/)
-  - [1QBit](./samples/getting-started/1qbit)
-  - [Toshiba SQBM+](./samples/getting-started/toshiba-sqbm)
-  - [Microsoft QIO](./samples/getting-started/microsoft-qio)
-- [Ship Loading Sample](./samples/ship-loading/)
-  - [Ship Loading Sample using squared linear combination terms](./samples/ship-loading-slc/)
-- [Multi-Ship Loading Sample](./samples/multiship-loading-sample)
-- [Job Shop Scheduling Sample](./samples/job-shop-scheduling)
-- [Traveling Salesperson Sample](./samples/traveling-salesperson)
-- [Secret Santa Sample](./samples/secret-santa)
-- [Sudoku Solver Sample](./samples/sudoku)
-- [Access to solvers not available in the QDK yet](./samples/weak-typing-solver-use)
-- [Quadratic Assignment Problem](./samples/quadratic-assignment-problem) (uses squared linear combination terms)
+- **[Toshiba SQBM+](./samples/)**:
+  This sample demonstrates how to submit a simple job with the Toshiba SQBM+ optimization solver in Azure Quantum.
 
 ## Contributing
 
