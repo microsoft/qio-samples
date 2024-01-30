@@ -1,6 +1,6 @@
 # Azure Quantum optimization samples
 
-> Please note that Microsoft QIO solvers will be deprecated and no longer available in Azure Quantum after June 30th 2023.
+> Please note that Microsoft QIO solvers are deprecated and are no longer available in Azure Quantum post-June 30th 2023. Toshiba solvers in Azure Quantum are also deprecated as of February 6, 2024.
 
 These samples demonstrate the use of quantum-inspired optimization (QIO) in the Azure Quantum service.
 
